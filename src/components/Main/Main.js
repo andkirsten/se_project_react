@@ -3,11 +3,7 @@ import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
 import defaultClothingItems from "../../utils/defaultClothing";
 
-const Main = () => {
-  const handleCardClick = () => {
-    console.log("click");
-  };
-
+const Main = ({ onSelectedCard, onPreviewClick }) => {
   return (
     <main className="main">
       <WeatherCard day={true} type="fog" />
@@ -16,9 +12,9 @@ const Main = () => {
         {defaultClothingItems.map((item) => (
           <ItemCard
             key={item._id}
-            imageSrc={item.link}
-            title={item.name}
-            handleCardClick={handleCardClick}
+            item={item}
+            onSelectedItem={onSelectedCard}
+            onPreviewClick={onPreviewClick}
           />
         ))}
       </section>

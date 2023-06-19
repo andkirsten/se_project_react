@@ -1,13 +1,21 @@
 import "./ItemCard.css";
 
-const ItemCard = ({ imageSrc, title, handleCardClick }) => {
+const ItemCard = ({ item, onSelectedItem, onPreviewClick }) => {
+  console.log(item);
   const cardStyle = {
-    backgroundImage: `url(${imageSrc})`,
+    backgroundImage: `url(${item.link})`,
   };
 
   return (
-    <div className="card" style={cardStyle} onClick={handleCardClick}>
-      <h3 className="card__title">{title}</h3>
+    <div
+      className="card"
+      style={cardStyle}
+      onClick={() => {
+        onSelectedItem(item);
+        onPreviewClick();
+      }}
+    >
+      <h3 className="card__title">{item.name}</h3>
     </div>
   );
 };

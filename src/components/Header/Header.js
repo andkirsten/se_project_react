@@ -1,18 +1,10 @@
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./Header.css";
-import { useState } from "react";
 
-const Header = () => {
+const Header = ({ onAddClick }) => {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleAddClick = () => {
-    setIsModalOpen(true);
-  };
 
   return (
     <>
@@ -29,7 +21,7 @@ const Header = () => {
         <div className="header__group">
           <div>
             <button
-              onClick={handleAddClick}
+              onClick={onAddClick}
               className="header__add-btn"
               type="text"
             >
@@ -46,7 +38,6 @@ const Header = () => {
           </div>
         </div>
       </header>
-      {isModalOpen && <ModalWithForm />}
     </>
   );
 };

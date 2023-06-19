@@ -1,0 +1,27 @@
+.input__group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input__label {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+  padding: 4px 0;
+}
+
+.input__input {
+  border: none;
+  border-bottom: 1px solid black;
+  margin-bottom: 24px;
+  outline: none;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.input__radio {
+  margin-bottom: 8px;
+  font-weight: 700;
+}
