@@ -1,4 +1,6 @@
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./Header.css";
+import { useState } from "react";
 
 const Header = () => {
   const currentDate = new Date().toLocaleString("default", {
@@ -6,30 +8,43 @@ const Header = () => {
     day: "numeric",
   });
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleAddClick = () => {
+    setIsModalOpen(true);
+  };
+
   return (
-    <header className="header">
-      <div className="header__group">
-        <div className="header__logo">
-          <img src="/images/logo.png" alt="WTWR logo" />
+    <>
+      <header className="header">
+        <div className="header__group">
+          <div className="header__logo">
+            <img src="/images/logo.png" alt="WTWR logo" />
+          </div>
+          <div className="header__date">{currentDate}, Location</div>
         </div>
-        <div className="header__date">{currentDate}, Location</div>
-      </div>
-      <div className="header__group">
-        <div>
-          <button className="header__add-btn" type="text">
-            + Add Clothes
-          </button>
+        <div className="header__group">
+          <div>
+            <button
+              onClick={handleAddClick}
+              className="header__add-btn"
+              type="text"
+            >
+              + Add Clothes
+            </button>
+          </div>
+          <div className="header__username">Terrence Tegegne</div>
+          <div>
+            <img
+              className="header__avatar"
+              src="/images/avatar.svg"
+              alt="avatar"
+            />
+          </div>
         </div>
-        <div className="header__username">Terrence Tegegne</div>
-        <div>
-          <img
-            className="header__avatar"
-            src="/images/avatar.svg"
-            alt="avatar"
-          />
-        </div>
-      </div>
-    </header>
+      </header>
+      {isModalOpen && <ModalWithForm />}
+    </>
   );
 };
 

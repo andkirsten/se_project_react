@@ -10,7 +10,7 @@ const Main = () => {
 
   return (
     <main className="main">
-      <WeatherCard />
+      <WeatherCard day={true} type="fog" />
       <p>Today is 75 F / You may want to wear:</p>
       <section className="main__item-cards">
         {defaultClothingItems.map((item) => (
