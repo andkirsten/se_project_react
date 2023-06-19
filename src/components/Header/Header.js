@@ -19,7 +19,10 @@ const Header = () => {
       <header className="header">
         <div className="header__group">
           <div className="header__logo">
-            <img src="/images/logo.png" alt="WTWR logo" />
+            <img
+              src={require("../../images/logo.png").require}
+              alt="WTWR logo"
+            />
           </div>
           <div className="header__date">{currentDate}, Location</div>
         </div>
@@ -37,7 +40,7 @@ const Header = () => {
           <div>
             <img
               className="header__avatar"
-              src="/images/avatar.svg"
+              src={require("../../images/avatar.svg").require}
               alt="avatar"
             />
           </div>

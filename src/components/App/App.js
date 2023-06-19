@@ -1,6 +1,7 @@
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
+import Footer from "../Footer/Footer";
 
 function App() {
   const currentDate = new Date().toLocaleString("default", {
@@ -12,6 +13,7 @@ function App() {
     <div>
       <Header />
       <Main />
+      <Footer />
     </div>
   );
 }

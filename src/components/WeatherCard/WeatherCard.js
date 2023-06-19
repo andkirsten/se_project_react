@@ -1,18 +1,66 @@
 import "./WeatherCard.css";
 
 const weatherOptions = [
-  { url: "/images/weather/sunny.svg", day: true, type: "sunny" },
-  { url: "/images/weather/cloudy.svg", day: true, type: "cloudy" },
-  { url: "/images/weather/fog.svg", day: true, type: "fog" },
-  { url: "/images/weather/rain.svg", day: true, type: "rain" },
-  { url: "/images/weather/snow.svg", day: true, type: "snow" },
-  { url: "/images/weather/storm.svg", day: true, type: "storm" },
-  { url: "/images/weather/n_sunny.svg", day: false, type: "sunny" },
-  { url: "/images/weather/n_cloudy.svg", day: false, type: "cloudy" },
-  { url: "/images/weather/n_fog.svg", day: false, type: "fog" },
-  { url: "/images/weather/n_rain.svg", day: false, type: "rain" },
-  { url: "/images/weather/n_snow.svg", day: false, type: "snow" },
-  { url: "/images/weather/n_storm.svg", day: false, type: "storm" },
+  {
+    url: require("../../images/weather/sunny.svg").default,
+    day: true,
+    type: "sunny",
+  },
+  {
+    url: require("../../images/weather/cloudy.svg").default,
+    day: true,
+    type: "cloudy",
+  },
+  {
+    url: require("../../images/weather/fog.svg").default,
+    day: true,
+    type: "fog",
+  },
+  {
+    url: require("../../images/weather/rain.svg").default,
+    day: true,
+    type: "rain",
+  },
+  {
+    url: require("../../images/weather/snow.svg").default,
+    day: true,
+    type: "snow",
+  },
+  {
+    url: require("../../images/weather/storm.svg").default,
+    day: true,
+    type: "storm",
+  },
+  {
+    url: require("../../images/weather/n_sunny.svg").default,
+    day: false,
+    type: "sunny",
+  },
+  {
+    url: require("../../images/weather/n_cloudy.svg").default,
+    day: false,
+    type: "cloudy",
+  },
+  {
+    url: require("../../images/weather/n_fog.svg").default,
+    day: false,
+    type: "fog",
+  },
+  {
+    url: require("../../images/weather/n_rain.svg").default,
+    day: false,
+    type: "rain",
+  },
+  {
+    url: require("../../images/weather/n_snow.svg").default,
+    day: false,
+    type: "snow",
+  },
+  {
+    url: require("../../images/weather/n_storm.svg").default,
+    day: false,
+    type: "storm",
+  },
 ];
 
 const WeatherCard = ({ day, type }) => {
