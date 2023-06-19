@@ -1,17 +1,13 @@
 @font-face {
   font-family: "Cabinet Grotesk";
-  src: local("CabinetGrotesk")
-    url(./fonts/CabinetGrotesk/CabinetGrotesk-Regular.woff);
+  font-weight: 500;
+  src: url(./fonts/CabinetGrotesk/CabinetGrotesk-Regular.woff);
+  font-style: normal;
 }
 
-/* body {
-  margin: 0;
-  font-family: "Cabinet Grotesk", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url(./fonts/CabinetGrotesk/CabinetGrotesk-Bold.woff);
+  font-weight: 700;
+  font-style: normal;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-} */

@@ -12,15 +12,21 @@ const Header = () => {
         <div className="header__logo">
           <img src="/images/logo.png" alt="WTWR logo" />
         </div>
-        <div>{currentDate}</div>
+        <div className="header__date">{currentDate}, Location</div>
       </div>
       <div className="header__group">
         <div>
-          <button type="text">+ Add Clothes</button>
+          <button className="header__add-btn" type="text">
+            + Add Clothes
+          </button>
         </div>
-        <div>Terrence Tegegne</div>
+        <div className="header__username">Terrence Tegegne</div>
         <div>
-          <img src="/images/avatar.svg" alt="avatar" />
+          <img
+            className="header__avatar"
+            src="/images/avatar.svg"
+            alt="avatar"
+          />
         </div>
       </div>
     </header>

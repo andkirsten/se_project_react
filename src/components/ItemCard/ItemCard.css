@@ -1,0 +1,23 @@
+.card {
+  margin-right: 17px;
+  margin-bottom: 17px;
+  position: relative;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 19px;
+  height: 328px;
+  width: 328px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.card__title {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 16px;
+  padding: 2px 12px;
+  background-color: white;
+  border-radius: 4px;
+  gap: 8px;
+}
