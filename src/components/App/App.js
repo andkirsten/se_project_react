@@ -3,9 +3,10 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NewGarmentForm from "../NewGarmentForm/NewGarmentForm";
 import ItemModal from "../ItemModal/ItemModal";
+import getWeather, { parseTemp, parseWeather } from "../../utils/weatherApi";
 
 function App() {
   const currentDate = new Date().toLocaleString("default", {
@@ -14,6 +15,9 @@ function App() {
   });
 
   const [activeModal, setActiveModal] = useState("");
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [temp, setTemp] = useState(0);
+  const [weather, setWeather] = useState("Clear");
   const handleAddGarmentModal = () => {
     setActiveModal("new-garment");
   };
@@ -25,15 +29,25 @@ function App() {
     setActiveModal("item-preview");
   };
 
-  const [selectedCard, setSelectedCard] = useState(null);
   const handleSelectedCard = (card) => {
     setSelectedCard(card);
   };
-  console.log(selectedCard);
+
+  useEffect(() => {
+    getWeather().then((res) => {
+      const temperature = parseTemp(res);
+      setTemp(temperature);
+      const weatherName = parseWeather(res);
+      setWeather(weatherName);
+    });
+  }, []);
+
   return (
     <div>
-      <Header onAddClick={handleAddGarmentModal} />
+      <Header date={currentDate} onAddClick={handleAddGarmentModal} />
       <Main
+        weather={weather}
+        temp={temp}
         onPreviewClick={handlePreviewModal}
         onSelectedCard={handleSelectedCard}
       />

@@ -1,7 +1,6 @@
 import "./ItemCard.css";
 
 const ItemCard = ({ item, onSelectedItem, onPreviewClick }) => {
-  console.log(item);
   const cardStyle = {
     backgroundImage: `url(${item.link})`,
   };

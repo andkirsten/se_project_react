@@ -49,7 +49,7 @@
 }
 
 .modal__submit {
-  background: rgba(0, 0, 0, 0.3);
+  background: #000000;
   border-radius: 4px;
   color: #fff;
   border: none;
@@ -61,4 +61,13 @@
   margin-top: 24px;
   font-family: "Cabinet Grotesk", sans-serif;
   font-weight: 700;
+}
+
+.modal__submit:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal__submit:disabled {
+  background: rgba(0, 0, 0, 0.3);
+  cursor: not-allowed;
 }

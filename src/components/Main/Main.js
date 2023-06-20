@@ -1,13 +1,13 @@
 import "./Main.css";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
-import defaultClothingItems from "../../utils/defaultClothing";
+import defaultClothingItems from "../../utils/constants";
 
-const Main = ({ onSelectedCard, onPreviewClick }) => {
+const Main = ({ weather, temp, onSelectedCard, onPreviewClick }) => {
   return (
     <main className="main">
-      <WeatherCard day={true} type="fog" />
-      <p>Today is 75 F / You may want to wear:</p>
+      <WeatherCard temp={temp} day={true} type={weather} />
+      <p>Today is {temp}°F / You may want to wear:</p>
       <section className="main__item-cards">
         {defaultClothingItems.map((item) => (
           <ItemCard

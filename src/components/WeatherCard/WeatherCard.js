@@ -4,66 +4,66 @@ const weatherOptions = [
   {
     url: require("../../images/weather/sunny.svg").default,
     day: true,
-    type: "sunny",
+    type: "Clear",
   },
   {
     url: require("../../images/weather/cloudy.svg").default,
     day: true,
-    type: "cloudy",
+    type: "Clouds",
   },
   {
     url: require("../../images/weather/fog.svg").default,
     day: true,
-    type: "fog",
+    type: "Fog",
   },
   {
     url: require("../../images/weather/rain.svg").default,
     day: true,
-    type: "rain",
+    type: "Rain",
   },
   {
     url: require("../../images/weather/snow.svg").default,
     day: true,
-    type: "snow",
+    type: "Snow",
   },
   {
     url: require("../../images/weather/storm.svg").default,
     day: true,
-    type: "storm",
+    type: "Thunderstorm",
   },
   {
     url: require("../../images/weather/n_sunny.svg").default,
     day: false,
-    type: "sunny",
+    type: "Clear",
   },
   {
     url: require("../../images/weather/n_cloudy.svg").default,
     day: false,
-    type: "cloudy",
+    type: "Clouds",
   },
   {
     url: require("../../images/weather/n_fog.svg").default,
     day: false,
-    type: "fog",
+    type: "Fog",
   },
   {
     url: require("../../images/weather/n_rain.svg").default,
     day: false,
-    type: "rain",
+    type: "Rain",
   },
   {
     url: require("../../images/weather/n_snow.svg").default,
     day: false,
-    type: "snow",
+    type: "Snow",
   },
   {
     url: require("../../images/weather/n_storm.svg").default,
     day: false,
-    type: "storm",
+    type: "Thunderstorm",
   },
 ];
 
-const WeatherCard = ({ day, type }) => {
+const WeatherCard = ({ temp, day, type }) => {
   const imageSrc = weatherOptions.filter((i) => {
     return i.day === day && i.type === type;
   });
@@ -76,7 +76,7 @@ const WeatherCard = ({ day, type }) => {
           className="weather__image"
           alt="weather"
         ></img>
-        <div className="weather__temp">75°F</div>
+        <div className="weather__temp">{temp}°F</div>
       </div>
     </>
   );

@@ -13,8 +13,10 @@ const ItemModal = ({ item, onClose }) => {
           onClick={onClose}
         ></button>
         <img className="modal__image" src={item.link} alt={item.name} />
-        <h2 className="modal__title">Name: {item.name}</h2>
-        <p className="modal__type">Weather: {item.weather}</p>
+        <div className="modal__label">
+          <h2 className="modal__title">{item.name}</h2>
+          <p className="modal__type">Weather: {item.weather}</p>
+        </div>
       </div>
     </div>
   );
