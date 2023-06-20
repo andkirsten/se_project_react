@@ -11,12 +11,11 @@
   font-family: "Cabinet Grotesk", sans-serif;
 }
 
-.modal-content {
+.modal__content {
   background-color: #fefefe;
   max-width: 496px;
   margin: 193px auto;
   padding: 28px;
-  border: 1px solid #888;
   position: relative;
   border-radius: 20px;
   box-sizing: border-box;
@@ -33,7 +32,7 @@
   padding-bottom: 24px;
 }
 
-.modal__close-btn {
+.modal__close {
   background-image: url("../../images/x.svg");
   background-repeat: no-repeat;
   background-size: 100%;
@@ -45,7 +44,6 @@
   position: absolute;
   top: 22px;
   right: 30px;
-  font-family: "Cabinet Grotesk", sans-serif;
 }
 
 .modal__submit {

@@ -6,7 +6,11 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useEffect, useState } from "react";
 import NewGarmentForm from "../NewGarmentForm/NewGarmentForm";
 import ItemModal from "../ItemModal/ItemModal";
-import getWeather, { parseTemp, parseWeather } from "../../utils/weatherApi";
+import getWeather, {
+  parseTemp,
+  parseWeather,
+  parseLocation,
+} from "../../utils/weatherApi";
 
 function App() {
   const currentDate = new Date().toLocaleString("default", {
@@ -18,6 +22,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [temp, setTemp] = useState(0);
   const [weather, setWeather] = useState("Clear");
+  const [location, setLocation] = useState("");
   const handleAddGarmentModal = () => {
     setActiveModal("new-garment");
   };
@@ -39,12 +44,18 @@ function App() {
       setTemp(temperature);
       const weatherName = parseWeather(res);
       setWeather(weatherName);
+      const loc = parseLocation(res);
+      setLocation(loc);
     });
   }, []);
 
   return (
     <div>
-      <Header date={currentDate} onAddClick={handleAddGarmentModal} />
+      <Header
+        location={location}
+        date={currentDate}
+        onAddClick={handleAddGarmentModal}
+      />
       <Main
         weather={weather}
         temp={temp}

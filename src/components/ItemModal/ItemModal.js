@@ -2,7 +2,6 @@ import React from "react";
 import "./ItemModal.css";
 
 const ItemModal = ({ item, onClose }) => {
-  console.log(item);
   return (
     <div className={`modal`}>
       <div className="modal-content">

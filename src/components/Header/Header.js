@@ -2,7 +2,7 @@ import "./Header.css";
 import logoImage from "../../images/logo.png";
 import avatarImage from "../../images/avatar.svg";
 
-const Header = ({ date, onAddClick }) => {
+const Header = ({ location, date, onAddClick }) => {
   return (
     <>
       <header className="header">
@@ -10,7 +10,9 @@ const Header = ({ date, onAddClick }) => {
           <div className="header__logo">
             <img src={logoImage} alt="WTWR logo" />
           </div>
-          <div className="header__date">{date}, Location</div>
+          <div className="header__date">
+            {date}, {location}
+          </div>
         </div>
         <div className="header__group">
           <div>

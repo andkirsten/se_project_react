@@ -27,6 +27,12 @@ const parseWeather = (data) => {
   return weather;
 };
 
+const parseLocation = (data) => {
+  const city = data.name;
+  return city;
+};
+
 export { parseTemp };
 export default getWeather;
 export { parseWeather };
+export { parseLocation };
