@@ -46,6 +46,11 @@
   right: 30px;
 }
 
+.modal__close:hover {
+  width: 18px;
+  height: 18px;
+}
+
 .modal__submit {
   background: #000000;
   border-radius: 4px;

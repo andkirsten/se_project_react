@@ -13,11 +13,6 @@ import getWeather, {
 } from "../../utils/weatherApi";
 
 function App() {
-  const currentDate = new Date().toLocaleString("default", {
-    month: "long",
-    day: "numeric",
-  });
-
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
   const [temp, setTemp] = useState(0);
@@ -39,23 +34,23 @@ function App() {
   };
 
   useEffect(() => {
-    getWeather().then((res) => {
-      const temperature = parseTemp(res);
-      setTemp(temperature);
-      const weatherName = parseWeather(res);
-      setWeather(weatherName);
-      const loc = parseLocation(res);
-      setLocation(loc);
-    });
+    getWeather()
+      .then((res) => {
+        const temperature = parseTemp(res);
+        setTemp(temperature);
+        const weatherName = parseWeather(res);
+        setWeather(weatherName);
+        const loc = parseLocation(res);
+        setLocation(loc);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
     <div>
-      <Header
-        location={location}
-        date={currentDate}
-        onAddClick={handleAddGarmentModal}
-      />
+      <Header location={location} onAddClick={handleAddGarmentModal} />
       <Main
         weather={weather}
         temp={temp}
@@ -66,11 +61,12 @@ function App() {
       {activeModal === "new-garment" && (
         <ModalWithForm
           onClose={handleCloseModal}
-          children={<NewGarmentForm />}
           title="New Garment"
           name="new-garment"
           buttonText="Add Garment"
-        />
+        >
+          <NewGarmentForm />
+        </ModalWithForm>
       )}
       {activeModal === "item-preview" && (
         <ItemModal item={selectedCard} onClose={handleCloseModal} />

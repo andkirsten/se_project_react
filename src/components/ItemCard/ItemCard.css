@@ -9,6 +9,7 @@
   width: 328px;
   background-repeat: no-repeat;
   background-size: contain;
+  cursor: pointer;
 }
 
 .card__title {

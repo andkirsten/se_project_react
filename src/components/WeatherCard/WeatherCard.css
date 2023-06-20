@@ -9,7 +9,7 @@
 
 .weather__temp {
   position: absolute;
-  font-family: "Cabinet Grotesk";
+  font-family: "Cabinet Grotesk", sans-serif;
   font-weight: 700;
   font-size: 36px;
   line-height: 1.2;

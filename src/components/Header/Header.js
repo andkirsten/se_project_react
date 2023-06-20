@@ -3,6 +3,10 @@ import logoImage from "../../images/logo.png";
 import avatarImage from "../../images/avatar.svg";
 
 const Header = ({ location, date, onAddClick }) => {
+  const currentDate = new Date().toLocaleString("default", {
+    month: "long",
+    day: "numeric",
+  });
   return (
     <>
       <header className="header">
@@ -11,7 +15,7 @@ const Header = ({ location, date, onAddClick }) => {
             <img src={logoImage} alt="WTWR logo" />
           </div>
           <div className="header__date">
-            {date}, {location}
+            {currentDate}, {location}
           </div>
         </div>
         <div className="header__group">

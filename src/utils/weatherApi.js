@@ -1,18 +1,19 @@
 import { APIkey, latitude, longitude } from "./constants";
 
+const processServerResponse = (res) => {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Error: ${res.status}`);
+};
+
 const getWeather = () => {
   const weatherApi = fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}`
   )
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Error: ${res.status}`);
-      }
-    })
-    .then((data) => {
-      return data;
+    .then(processServerResponse)
+    .catch((err) => {
+      console.log(err);
     });
   return weatherApi;
 };
@@ -32,7 +33,5 @@ const parseLocation = (data) => {
   return city;
 };
 
-export { parseTemp };
 export default getWeather;
-export { parseWeather };
-export { parseLocation };
+export { parseWeather, parseLocation, parseTemp };
