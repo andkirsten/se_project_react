@@ -49,7 +49,7 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className="page">
       <Header location={location} onAddClick={handleAddGarmentModal} />
       <Main
         weather={weather}

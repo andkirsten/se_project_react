@@ -10,11 +10,8 @@ const processServerResponse = (res) => {
 const getWeather = () => {
   const weatherApi = fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}`
-  )
-    .then(processServerResponse)
-    .catch((err) => {
-      console.log(err);
-    });
+  ).then(processServerResponse);
+
   return weatherApi;
 };
 

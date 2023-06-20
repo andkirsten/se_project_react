@@ -7,7 +7,7 @@ function NewGarmentForm() {
   const [temperature, setTemperature] = useState("");
 
   return (
-    <>
+    <div>
       <div className="input__group">
         <label className="input__label" htmlFor="name">
           Name:
@@ -80,7 +80,7 @@ function NewGarmentForm() {
         />
         <label htmlFor="cold">Cold</label>
       </div>
-    </>
+    </div>
   );
 }
 
