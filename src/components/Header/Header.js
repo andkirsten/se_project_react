@@ -1,6 +1,7 @@
 import "./Header.css";
-import logoImage from "../../images/logo.png";
+import logoImage from "../../logo.png";
 import avatarImage from "../../images/avatar.svg";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 const Header = ({ location, date, onAddClick }) => {
   const currentDate = new Date().toLocaleString("default", {
@@ -18,6 +19,9 @@ const Header = ({ location, date, onAddClick }) => {
         </div>
       </div>
       <div className="header__group">
+        <div>
+          <ToggleSwitch />
+        </div>
         <div>
           <button onClick={onAddClick} className="header__add-btn" type="text">
             + Add Clothes

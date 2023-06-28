@@ -5,6 +5,7 @@ import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useEffect, useState } from "react";
 import NewGarmentForm from "../NewGarmentForm/NewGarmentForm";
+import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
 import ItemModal from "../ItemModal/ItemModal";
 import getWeather, {
   parseTemp,
@@ -18,6 +19,7 @@ function App() {
   const [temp, setTemp] = useState(0);
   const [weather, setWeather] = useState("Clear");
   const [location, setLocation] = useState("");
+  const [currentTempUnit, setCurrentTempUnit] = useState("F");
   const handleAddGarmentModal = () => {
     setActiveModal("new-garment");
   };
@@ -31,6 +33,10 @@ function App() {
 
   const handleSelectedCard = (card) => {
     setSelectedCard(card);
+  };
+
+  const handleToggleSwitch = () => {
+    currentTempUnit === "F" ? setCurrentTempUnit("C") : setCurrentTempUnit("F");
   };
 
   useEffect(() => {
@@ -50,27 +56,34 @@ function App() {
 
   return (
     <div className="page">
-      <Header location={location} onAddClick={handleAddGarmentModal} />
-      <Main
-        weather={weather}
-        temp={temp}
-        onPreviewClick={handlePreviewModal}
-        onSelectedCard={handleSelectedCard}
-      />
-      <Footer />
-      {activeModal === "new-garment" && (
-        <ModalWithForm
-          onClose={handleCloseModal}
-          title="New Garment"
-          name="new-garment"
-          buttonText="Add Garment"
-        >
-          <NewGarmentForm />
-        </ModalWithForm>
-      )}
-      {activeModal === "item-preview" && (
-        <ItemModal item={selectedCard} onClose={handleCloseModal} />
-      )}
+      <CurrentTempUnitContext.Provider
+        value={{
+          currentTempUnit,
+          setCurrentTempUnit: handleToggleSwitch,
+        }}
+      >
+        <Header location={location} onAddClick={handleAddGarmentModal} />
+        <Main
+          weather={weather}
+          temp={temp}
+          onPreviewClick={handlePreviewModal}
+          onSelectedCard={handleSelectedCard}
+        />
+        <Footer />
+        {activeModal === "new-garment" && (
+          <ModalWithForm
+            onClose={handleCloseModal}
+            title="New Garment"
+            name="new-garment"
+            buttonText="Add Garment"
+          >
+            <NewGarmentForm />
+          </ModalWithForm>
+        )}
+        {activeModal === "item-preview" && (
+          <ItemModal item={selectedCard} onClose={handleCloseModal} />
+        )}
+      </CurrentTempUnitContext.Provider>
     </div>
   );
 }
