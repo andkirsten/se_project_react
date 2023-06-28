@@ -1,7 +1,10 @@
 import "./WeatherCard.css";
 import { weatherOptions } from "../../utils/constants";
+import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
+import React from "react";
 
-const WeatherCard = ({ temp, day, type }) => {
+const WeatherCard = ({ tempCelcius, temp, day, type }) => {
+  const { currentTempUnit } = React.useContext(CurrentTempUnitContext);
   const weatherOption = weatherOptions.find((item) => {
     return item.day === day && item.type === type;
   });
@@ -13,7 +16,9 @@ const WeatherCard = ({ temp, day, type }) => {
         className="weather__image"
         alt="weather"
       ></img>
-      <div className="weather__temp">{temp}°F</div>
+      <div className="weather__temp">
+        {currentTempUnit === "F" ? `${temp}°F` : `${tempCelcius}°C`}
+      </div>
     </div>
   );
 };

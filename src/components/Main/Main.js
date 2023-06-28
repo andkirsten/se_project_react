@@ -2,8 +2,11 @@ import "./Main.css";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
 import { defaultClothingItems } from "../../utils/constants";
+import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
+import React from "react";
 
 const Main = ({ weather, temp, onSelectedCard, onPreviewClick }) => {
+  const { currentTempUnit } = React.useContext(CurrentTempUnitContext);
   const getWeatherType = () => {
     if (temp >= 86) {
       return "hot";
@@ -20,10 +23,20 @@ const Main = ({ weather, temp, onSelectedCard, onPreviewClick }) => {
     (item) => item.weather === weatherType
   );
 
+  const tempCelcius = Math.ceil((temp - 32) / 1.8);
+
   return (
     <main className="main">
-      <WeatherCard temp={temp} day={true} type={weather} />
-      <p>Today is {temp}°F / You may want to wear:</p>
+      <WeatherCard
+        tempCelcius={tempCelcius}
+        temp={temp}
+        day={true}
+        type={weather}
+      />
+      <p>
+        Today is {currentTempUnit === "F" ? `${temp}°F` : `${tempCelcius}°C`} /
+        You may want to wear:
+      </p>
       <section className="main__item-cards">
         {filteredItems.map((item) => (
           <ItemCard
