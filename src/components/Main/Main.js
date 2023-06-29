@@ -45,7 +45,7 @@ const Main = ({
       <section className="main__item-cards">
         {filteredItems.map((item) => (
           <ItemCard
-            key={item._id}
+            key={item.id}
             item={item}
             onSelectedItem={onSelectedCard}
             onPreviewClick={onPreviewClick}

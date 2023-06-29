@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./NewGarmentModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import api from "../../utils/api";
 
 function NewGarmentModal({
   title,
@@ -23,10 +24,27 @@ function NewGarmentModal({
     setTemperature(e.target.value);
   };
 
+  // const handleAddItemSubmit = (e) => {
+  //   e.preventDefault();
+  //   const garmentData = {
+  //     name,
+  //     image,
+  //     temperature,
+  //   };
+
+  //   api
+  //     .createGarment(garmentData)
+  //     .then((res) => {
+  //       console.log(res);
+  //       onClose();
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
   return (
     <div>
       <ModalWithForm
-        handleSubmit={() => handleSubmit({ name, image, temperature })}
+        handleSubmit={handleSubmit}
         title={title}
         modalName={modalName}
         onClose={onClose}

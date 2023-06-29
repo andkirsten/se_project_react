@@ -11,14 +11,14 @@ const ItemModal = ({ item, onClose, handleDeleteItem }) => {
           aria-label="close"
           onClick={onClose}
         ></button>
-        <img className="modal__image" src={item.link} alt={item.name} />
+        <img className="modal__image" src={item.imageUrl} alt={item.name} />
         <div className="modal__label">
           <div className="modal__label-top">
             <h2 className="modal__title">{item.name}</h2>
             <button
               className="modal__delete"
               type="button"
-              onClick={handleDeleteItem(item)}
+              onClick={handleDeleteItem}
             >
               Delete item
             </button>

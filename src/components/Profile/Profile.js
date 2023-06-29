@@ -1,6 +1,5 @@
 import React from "react";
 import "./Profile.css";
-import { defaultClothingItems } from "../../utils/constants";
 import ItemCard from "../ItemCard/ItemCard";
 
 const Profile = ({
@@ -9,6 +8,8 @@ const Profile = ({
   onAddItem,
   onSelectedCard,
   onPreviewClick,
+  clothingItems,
+  handleDeleteItem,
 }) => {
   return (
     <div className="profile">
@@ -28,9 +29,9 @@ const Profile = ({
           </button>
         </div>
         <div className="profile__items-list">
-          {defaultClothingItems.map((item) => (
+          {clothingItems.map((item) => (
             <ItemCard
-              key={item._id}
+              key={item.id}
               item={item}
               onSelectedItem={onSelectedCard}
               onPreviewClick={onPreviewClick}

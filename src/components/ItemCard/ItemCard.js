@@ -2,7 +2,7 @@ import "./ItemCard.css";
 
 const ItemCard = ({ item, onSelectedItem, onPreviewClick }) => {
   const cardStyle = {
-    backgroundImage: `url(${item.link})`,
+    backgroundImage: `url(${item.imageUrl})`,
   };
 
   return (

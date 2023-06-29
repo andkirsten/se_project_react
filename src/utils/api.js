@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:3001"; // The URL where your json-server is running
+const API_URL =
+  "https://my-json-server.typicode.com/andkirsten/se_project_react";
 
 const handleResponse = (response) => {
   if (!response.ok) {

@@ -19,6 +19,11 @@ const weatherOptions = [
     type: "Fog",
   },
   {
+    url: require("../images/weather/fog.svg").default,
+    day: true,
+    type: "Mist",
+  },
+  {
     url: require("../images/weather/rain.svg").default,
     day: true,
     type: "Rain",
@@ -52,6 +57,11 @@ const weatherOptions = [
     url: require("../images/weather/n_rain.svg").default,
     day: false,
     type: "Rain",
+  },
+  {
+    url: require("../images/weather/n_rain.svg").default,
+    day: false,
+    type: "Mist",
   },
   {
     url: require("../images/weather/n_snow.svg").default,
