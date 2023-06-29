@@ -1,17 +1,39 @@
-import axios from "axios";
-
 const API_URL = "http://localhost:3001"; // The URL where your json-server is running
 
-const api = axios.create({
-  baseURL: API_URL,
-});
-
-// Define your API methods
-const apiMethods = {
-  getGarments: () => api.get("/items"),
-  createGarment: (garmentData) => api.post("/items", garmentData),
-  updateGarment: (id, garmentData) => api.put(`/items/${id}`, garmentData),
-  deleteGarment: (id) => api.delete(`/items/${id}`),
+const handleResponse = (response) => {
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response.json();
 };
 
-export default apiMethods;
+const api = {
+  getGarments: () => {
+    return fetch(`${API_URL}/items`).then(handleResponse);
+  },
+  createGarment: (garmentData) => {
+    return fetch(`${API_URL}/items`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(garmentData),
+    }).then(handleResponse);
+  },
+  updateGarment: (id, garmentData) => {
+    return fetch(`${API_URL}/items/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(garmentData),
+    }).then(handleResponse);
+  },
+  deleteGarment: (id) => {
+    return fetch(`${API_URL}/items/${id}`, {
+      method: "DELETE",
+    }).then(handleResponse);
+  },
+};
+
+export default api;

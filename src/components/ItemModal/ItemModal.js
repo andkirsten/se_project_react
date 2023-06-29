@@ -1,7 +1,7 @@
 import React from "react";
 import "./ItemModal.css";
 
-const ItemModal = ({ item, onClose }) => {
+const ItemModal = ({ item, onClose, handleDeleteItem }) => {
   return (
     <div className={`modal`}>
       <div className="modal-content">
@@ -13,7 +13,16 @@ const ItemModal = ({ item, onClose }) => {
         ></button>
         <img className="modal__image" src={item.link} alt={item.name} />
         <div className="modal__label">
-          <h2 className="modal__title">{item.name}</h2>
+          <div className="modal__label-top">
+            <h2 className="modal__title">{item.name}</h2>
+            <button
+              className="modal__delete"
+              type="button"
+              onClick={handleDeleteItem(item)}
+            >
+              Delete item
+            </button>
+          </div>
           <p className="modal__type">Weather: {item.weather}</p>
         </div>
       </div>

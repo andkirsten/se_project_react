@@ -18,7 +18,7 @@ import { defaultClothingItems } from "../../utils/constants";
 import api from "../../utils/api";
 
 function App() {
-  api.getGarments().then((res) => console.log(res));
+  // api.getGarments().then((res) => console.log(res));
 
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
@@ -33,17 +33,16 @@ function App() {
 
   const handleAddItemSubmit = ({ name, temperature, image }) => {
     console.log(name, temperature, image);
-    const item = {
-      _id: clothingItems.length,
-      name: name,
-      weather: temperature,
-      link: image,
-    };
-
-    setClothingItems([item, ...clothingItems]);
-
-    setActiveModal("");
+    api
+      .createGarment({ name, weather: temperature, link: image })
+      .then((res) => {
+        console.log(res);
+        setClothingItems([res, ...clothingItems]);
+        setActiveModal("");
+      })
+      .catch((err) => console.log(err));
   };
+
   const handleCloseModal = () => {
     setActiveModal("");
   };
@@ -54,6 +53,14 @@ function App() {
 
   const handleSelectedCard = (card) => {
     setSelectedCard(card);
+  };
+
+  const handleDeleteItem = () => {
+    api.deleteGarment(selectedCard._id).then((res) => {
+      console.log(res);
+      setClothingItems(clothingItems.filter((item) => item._id !== res._id));
+      setActiveModal("");
+    });
   };
 
   const handleToggleSwitch = () => {
@@ -104,6 +111,7 @@ function App() {
               onPreviewClick={handlePreviewModal}
               onSelectedCard={handleSelectedCard}
               clothingItems={clothingItems}
+              handleDeleteItem={handleDeleteItem}
             />
           </Route>
         </Switch>
@@ -119,7 +127,11 @@ function App() {
           />
         )}
         {activeModal === "item-preview" && (
-          <ItemModal item={selectedCard} onClose={handleCloseModal} />
+          <ItemModal
+            item={selectedCard}
+            onClose={handleCloseModal}
+            handleDeleteItem={handleDeleteItem}
+          />
         )}
       </CurrentTempUnitContext.Provider>
     </div>
