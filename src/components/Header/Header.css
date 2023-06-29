@@ -4,10 +4,7 @@
   justify-content: space-between;
   width: 100%;
   min-height: 100px;
-  font-family: "Cabinet Grotesk", sans-serif;
-  line-height: 1.2;
   font-weight: 700;
-  font-size: 20px;
 }
 
 .header__group {
@@ -37,4 +34,8 @@
 
 .header__avatar {
   padding-left: 12px;
+}
+
+.header__username:hover {
+  color: #028bff;
 }

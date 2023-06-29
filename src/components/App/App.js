@@ -2,9 +2,8 @@ import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useEffect, useState } from "react";
-import NewGarmentForm from "../NewGarmentForm/NewGarmentForm";
+import NewGarmentModal from "../NewGarmentModal/NewGarmentModal";
 import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
 import ItemModal from "../ItemModal/ItemModal";
 import getWeather, {
@@ -12,16 +11,38 @@ import getWeather, {
   parseWeather,
   parseLocation,
 } from "../../utils/weatherApi";
+import avatar from "../../images/avatar.svg";
+import { Route, Switch } from "react-router-dom";
+import Profile from "../Profile/Profile";
+import { defaultClothingItems } from "../../utils/constants";
+import api from "../../utils/api";
 
 function App() {
+  api.getGarments().then((res) => console.log(res));
+
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
   const [temp, setTemp] = useState(0);
   const [weather, setWeather] = useState("Clear");
   const [location, setLocation] = useState("");
   const [currentTempUnit, setCurrentTempUnit] = useState("F");
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const handleAddGarmentModal = () => {
     setActiveModal("new-garment");
+  };
+
+  const handleAddItemSubmit = ({ name, temperature, image }) => {
+    console.log(name, temperature, image);
+    const item = {
+      _id: clothingItems.length,
+      name: name,
+      weather: temperature,
+      link: image,
+    };
+
+    setClothingItems([item, ...clothingItems]);
+
+    setActiveModal("");
   };
   const handleCloseModal = () => {
     setActiveModal("");
@@ -62,23 +83,40 @@ function App() {
           setCurrentTempUnit: handleToggleSwitch,
         }}
       >
-        <Header location={location} onAddClick={handleAddGarmentModal} />
-        <Main
-          weather={weather}
-          temp={temp}
-          onPreviewClick={handlePreviewModal}
-          onSelectedCard={handleSelectedCard}
+        <Header
+          avatar={avatar}
+          location={location}
+          onAddClick={handleAddGarmentModal}
         />
+        <Switch>
+          <Route exact path="/profile">
+            <Profile
+              name="Terrence Tegegne"
+              avatar={avatar}
+              onPreviewClick={handlePreviewModal}
+              onSelectedCard={handleSelectedCard}
+            />
+          </Route>
+          <Route exact path="/">
+            <Main
+              weather={weather}
+              temp={temp}
+              onPreviewClick={handlePreviewModal}
+              onSelectedCard={handleSelectedCard}
+              clothingItems={clothingItems}
+            />
+          </Route>
+        </Switch>
+
         <Footer />
         {activeModal === "new-garment" && (
-          <ModalWithForm
+          <NewGarmentModal
             onClose={handleCloseModal}
             title="New Garment"
-            name="new-garment"
+            modalName="new-garment"
             buttonText="Add Garment"
-          >
-            <NewGarmentForm />
-          </ModalWithForm>
+            handleSubmit={handleAddItemSubmit}
+          />
         )}
         {activeModal === "item-preview" && (
           <ItemModal item={selectedCard} onClose={handleCloseModal} />

@@ -1,9 +1,9 @@
 import "./Header.css";
 import logoImage from "../../logo.png";
-import avatarImage from "../../images/avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import { Link } from "react-router-dom";
 
-const Header = ({ location, date, onAddClick }) => {
+const Header = ({ location, onAddClick, avatar }) => {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -11,9 +11,11 @@ const Header = ({ location, date, onAddClick }) => {
   return (
     <header className="header">
       <div className="header__group">
-        <div className="header__logo">
-          <img src={logoImage} alt="WTWR logo" />
-        </div>
+        <Link to="/">
+          <div className="header__logo">
+            <img src={logoImage} alt="WTWR logo" />
+          </div>
+        </Link>
         <div className="header__date">
           {currentDate}, {location}
         </div>
@@ -27,9 +29,13 @@ const Header = ({ location, date, onAddClick }) => {
             + Add Clothes
           </button>
         </div>
-        <div className="header__username">Terrence Tegegne</div>
+        <Link to="/profile" style={{ textDecoration: "none", color: "black" }}>
+          <div className="header__username">Terrence Tegegne</div>
+        </Link>
         <div>
-          <img className="header__avatar" src={avatarImage} alt="avatar" />
+          <Link to="/profile">
+            <img className="header__avatar" src={avatar} alt="avatar" />
+          </Link>
         </div>
       </div>
     </header>

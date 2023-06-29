@@ -4,13 +4,13 @@ import "./ModalWithForm.css";
 const ModalWithForm = ({
   children,
   title,
-  name,
+  modalName,
   buttonText = "Submit",
   onClose,
   handleSubmit,
 }) => {
   return (
-    <div className={`modal modal_type_${name}`}>
+    <div className={`modal modal_type_${modalName}`}>
       <div className="modal__content">
         <h2 className="modal__title">{title}</h2>
         <button
@@ -19,13 +19,9 @@ const ModalWithForm = ({
           aria-label="close"
           onClick={onClose}
         ></button>
-        <form>
+        <form onSubmit={handleSubmit}>
           {children}
-          <button
-            className="modal__submit"
-            type="submit"
-            onSubmit={handleSubmit}
-          >
+          <button className="modal__submit" type="submit">
             {buttonText}
           </button>
         </form>
