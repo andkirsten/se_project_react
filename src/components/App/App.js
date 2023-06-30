@@ -4,7 +4,7 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import { useEffect, useState } from "react";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import CurrentTempUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import ItemModal from "../ItemModal/ItemModal";
 import getWeather, {
   parseTemp,
@@ -97,7 +97,7 @@ function App() {
 
   return (
     <div className="page">
-      <CurrentTempUnitContext.Provider
+      <CurrentTemperatureUnitContext.Provider
         value={{
           currentTempUnit,
           setCurrentTempUnit: handleToggleSwitch,
@@ -147,7 +147,7 @@ function App() {
             handleDeleteItem={handleDeleteItem}
           />
         )}
-      </CurrentTempUnitContext.Provider>
+      </CurrentTemperatureUnitContext.Provider>
     </div>
   );
 }
