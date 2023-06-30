@@ -3,7 +3,7 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import { useEffect, useState } from "react";
-import NewGarmentModal from "../NewGarmentModal/NewGarmentModal";
+import AddItemModal from "../AddItemModal/AddItemModal";
 import CurrentTempUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import ItemModal from "../ItemModal/ItemModal";
 import getWeather, {
@@ -116,6 +116,7 @@ function App() {
               onPreviewClick={handlePreviewModal}
               onSelectedCard={handleSelectedCard}
               clothingItems={clothingItems}
+              onAddItem={handleAddGarmentModal}
             />
           </Route>
           <Route exact path="/">
@@ -131,7 +132,7 @@ function App() {
 
         <Footer />
         {activeModal === "new-garment" && (
-          <NewGarmentModal
+          <AddItemModal
             onClose={handleCloseModal}
             title="New Garment"
             modalName="new-garment"

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import "./NewGarmentModal.css";
+import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import api from "../../utils/api";
 
-function NewGarmentModal({
+function AddItemModal({
   title,
   modalName,
   buttonText = "Submit",
@@ -23,23 +22,6 @@ function NewGarmentModal({
   const handleTemperatureChange = (e) => {
     setTemperature(e.target.value);
   };
-
-  // const handleAddItemSubmit = (e) => {
-  //   e.preventDefault();
-  //   const garmentData = {
-  //     name,
-  //     image,
-  //     temperature,
-  //   };
-
-  //   api
-  //     .createGarment(garmentData)
-  //     .then((res) => {
-  //       console.log(res);
-  //       onClose();
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
 
   return (
     <div>
@@ -127,4 +109,4 @@ function NewGarmentModal({
   );
 }
 
-export default NewGarmentModal;
+export default AddItemModal;
