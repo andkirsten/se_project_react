@@ -116,7 +116,6 @@ function App() {
               onPreviewClick={handlePreviewModal}
               onSelectedCard={handleSelectedCard}
               clothingItems={clothingItems}
-              handleDeleteItem={handleDeleteItem}
             />
           </Route>
           <Route exact path="/">
@@ -126,7 +125,6 @@ function App() {
               onPreviewClick={handlePreviewModal}
               onSelectedCard={handleSelectedCard}
               clothingItems={clothingItems}
-              handleDeleteItem={handleDeleteItem}
             />
           </Route>
         </Switch>

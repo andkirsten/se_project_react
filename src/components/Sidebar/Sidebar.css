@@ -1,0 +1,15 @@
+.sidebar {
+  display: flex;
+}
+
+.sidebar__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  margin-right: 16px;
+}
+
+.sidebar__name {
+  width: 273px;
+  font-size: 20px;
+}
