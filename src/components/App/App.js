@@ -22,7 +22,7 @@ function App() {
   const [temp, setTemp] = useState(0);
   const [weather, setWeather] = useState("Clear");
   const [location, setLocation] = useState("");
-  const [currentTempUnit, setCurrentTempUnit] = useState("F");
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
   const handleAddGarmentModal = () => {
     setActiveModal("new-garment");
@@ -92,15 +92,17 @@ function App() {
   };
 
   const handleToggleSwitch = () => {
-    currentTempUnit === "F" ? setCurrentTempUnit("C") : setCurrentTempUnit("F");
+    currentTemperatureUnit === "F"
+      ? setCurrentTemperatureUnit("C")
+      : setCurrentTemperatureUnit("F");
   };
 
   return (
     <div className="page">
       <CurrentTemperatureUnitContext.Provider
         value={{
-          currentTempUnit,
-          setCurrentTempUnit: handleToggleSwitch,
+          currentTemperatureUnit,
+          setCurrentTemperatureUnit: handleToggleSwitch,
         }}
       >
         <Header

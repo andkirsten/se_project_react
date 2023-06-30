@@ -1,7 +1,7 @@
 import "./Main.css";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
-import CurrentTempUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import React from "react";
 
 const Main = ({
@@ -11,7 +11,9 @@ const Main = ({
   onPreviewClick,
   clothingItems,
 }) => {
-  const { currentTempUnit } = React.useContext(CurrentTempUnitContext);
+  const { currentTemperatureUnit } = React.useContext(
+    CurrentTemperatureUnitContext
+  );
   const getWeatherType = () => {
     if (temp >= 86) {
       return "hot";
@@ -39,7 +41,8 @@ const Main = ({
         type={weather}
       />
       <p>
-        Today is {currentTempUnit === "F" ? `${temp}°F` : `${tempCelcius}°C`} /
+        Today is{" "}
+        {currentTemperatureUnit === "F" ? `${temp}°F` : `${tempCelcius}°C`} /
         You may want to wear:
       </p>
       <section className="main__item-cards">
