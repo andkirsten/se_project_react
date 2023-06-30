@@ -1,6 +1,6 @@
 import React from "react";
 import "./Profile.css";
-import Sidebar from "../Sidebar/Sidebar";
+import SideBar from "../SideBar/SideBar";
 import ClothesSection from "../ClothesSection/ClothesSection";
 
 const Profile = ({
@@ -13,7 +13,7 @@ const Profile = ({
 }) => {
   return (
     <div className="profile">
-      <Sidebar name={name} avatar={avatar} />
+      <SideBar name={name} avatar={avatar} />
       <ClothesSection
         onAddItem={onAddItem}
         onSelectedCard={onSelectedCard}
