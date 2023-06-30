@@ -1,5 +1,4 @@
-const API_URL =
-  "https://my-json-server.typicode.com/andkirsten/se_project_react";
+import { API_URL } from "./constants";
 
 const handleResponse = (response) => {
   if (!response.ok) {

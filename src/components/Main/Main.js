@@ -1,7 +1,7 @@
 import "./Main.css";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
-import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import React from "react";
 
 const Main = ({
@@ -30,7 +30,10 @@ const Main = ({
     (item) => item.weather === weatherType
   );
 
-  const tempCelcius = Math.ceil((temp - 32) / 1.8);
+  const offset = 32;
+  const ratio = 1.8;
+
+  const tempCelcius = Math.ceil((temp - offset) / ratio);
 
   return (
     <main className="main">

@@ -23,10 +23,15 @@ function AddItemModal({
     setTemperature(e.target.value);
   };
 
+  const handleAddSubmit = (e) => {
+    e.preventDefault();
+    handleSubmit({ name, image, temperature });
+  };
+
   return (
     <div>
       <ModalWithForm
-        handleSubmit={handleSubmit}
+        handleSubmit={handleAddSubmit}
         title={title}
         modalName={modalName}
         onClose={onClose}

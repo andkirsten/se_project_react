@@ -1,15 +1,12 @@
 import { useState, useContext, useEffect } from "react";
-import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import "./ToggleSwitch.css";
 
 const ToggleSwitch = () => {
   const { currentTemperatureUnit, handleToggleSwitchChange } = useContext(
     CurrentTemperatureUnitContext
   );
-  const [checked, setChecked] = useState(currentTemperatureUnit === "F");
-  useEffect(() => {
-    setChecked(currentTemperatureUnit === "F");
-  }, [currentTemperatureUnit]);
+  const isChecked = currentTemperatureUnit === "F" ? true : false;
 
   return (
     <div className="switch">
@@ -17,7 +14,7 @@ const ToggleSwitch = () => {
         <input
           className="switch__input"
           type="checkbox"
-          checked={checked}
+          checked={isChecked}
           onChange={handleToggleSwitchChange}
           value={currentTemperatureUnit}
         />

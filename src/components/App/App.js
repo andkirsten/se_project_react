@@ -52,13 +52,12 @@ function App() {
       });
   }, []);
 
-  const handleAddItemSubmit = (e) => {
-    e.preventDefault();
+  const handleAddItem = (item) => {
     api
       .createGarment({
-        name: e.target.name.value,
-        weather: e.target.temperature.value,
-        imageUrl: e.target.image.value,
+        name: item.name,
+        weather: item.temperature,
+        imageUrl: item.image,
       })
       .then((res) => {
         setClothingItems([res, ...clothingItems]);
@@ -139,7 +138,7 @@ function App() {
             title="New Garment"
             modalName="new-garment"
             buttonText="Add Garment"
-            handleSubmit={handleAddItemSubmit}
+            handleSubmit={handleAddItem}
           />
         )}
         {activeModal === "item-preview" && (
