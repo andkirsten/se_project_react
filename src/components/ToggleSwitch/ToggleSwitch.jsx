@@ -6,7 +6,7 @@ const ToggleSwitch = () => {
   const { currentTemperatureUnit, handleToggleSwitchChange } = useContext(
     CurrentTemperatureUnitContext
   );
-  const isChecked = currentTemperatureUnit === "F" ? true : false;
+  const isChecked = currentTemperatureUnit === "F";
 
   return (
     <div className="switch">
