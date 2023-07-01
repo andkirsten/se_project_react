@@ -23,13 +23,12 @@ function AddItemModal({
     setTemperature(e.target.value);
   };
 
-  const handleAddSubmit = (e) => {
-    e.preventDefault();
+  const handleAddSubmit = () => {
     handleSubmit({ name, image, temperature });
   };
 
   return (
-    <div>
+    <div className="add-modal">
       <ModalWithForm
         handleSubmit={handleAddSubmit}
         title={title}
@@ -68,7 +67,7 @@ function AddItemModal({
           />
         </div>
         <div>
-          <label className="input__label">Temperature:</label>
+          <label className="input__label">Select the weather type:</label>
         </div>
         <div>
           <input
@@ -81,7 +80,9 @@ function AddItemModal({
             onChange={handleTemperatureChange}
             required
           />
-          <label htmlFor="hot">Hot</label>
+          <label className="radio__label" htmlFor="hot">
+            Hot
+          </label>
         </div>
         <div>
           <input
@@ -94,7 +95,9 @@ function AddItemModal({
             onChange={handleTemperatureChange}
             required
           />
-          <label htmlFor="warm">Warm</label>
+          <label className="radio__label" htmlFor="warm">
+            Warm
+          </label>
         </div>
         <div>
           <input
@@ -107,7 +110,9 @@ function AddItemModal({
             onChange={handleTemperatureChange}
             required
           />
-          <label htmlFor="cold">Cold</label>
+          <label className="radio__label" htmlFor="cold">
+            Cold
+          </label>
         </div>
       </ModalWithForm>
     </div>

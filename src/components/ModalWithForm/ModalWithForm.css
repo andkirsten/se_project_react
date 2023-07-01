@@ -1,16 +1,3 @@
-.modal {
-  display: block;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-  font-family: "Cabinet Grotesk", sans-serif;
-}
-
 .modal__content {
   background-color: #fefefe;
   max-width: 496px;
@@ -25,6 +12,7 @@
 }
 
 .modal__title {
+  font-family: "Cabinet Grotesk", sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.2;

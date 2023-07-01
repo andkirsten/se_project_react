@@ -9,6 +9,12 @@ const ModalWithForm = ({
   onClose,
   handleSubmit,
 }) => {
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    handleSubmit();
+  };
+
+
   return (
     <div className={`modal modal_type_${modalName}`}>
       <div className="modal__content">
@@ -19,7 +25,7 @@ const ModalWithForm = ({
           aria-label="close"
           onClick={onClose}
         ></button>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleFormSubmit}>
           {children}
           <button className="modal__submit" type="submit">
             {buttonText}

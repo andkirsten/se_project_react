@@ -37,7 +37,9 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
+  }, []);
 
+  useEffect(() => {
     getWeather()
       .then((res) => {
         const temperature = parseTemp(res);
@@ -135,7 +137,7 @@ function App() {
         {activeModal === "new-garment" && (
           <AddItemModal
             onClose={handleCloseModal}
-            title="New Garment"
+            title="New garment"
             modalName="new-garment"
             buttonText="Add Garment"
             handleSubmit={handleAddItem}
