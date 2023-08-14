@@ -1,5 +1,5 @@
 import "./Header.css";
-import logoImage from "../../images/logo.svg";
+import logoImage from "../../logo.png";
 import avatarImage from "../../images/avatar.svg";
 
 const Header = ({ date, onAddClick }) => {
@@ -22,7 +22,7 @@ const Header = ({ date, onAddClick }) => {
               + Add Clothes
             </button>
           </div>
-          <div className="header__username">Terrence Tegegne</div>
+          <div className="header__username">Calvin Morris</div>
           <div>
             <img className="header__avatar" src={avatarImage} alt="avatar" />
           </div>

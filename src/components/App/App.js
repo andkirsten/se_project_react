@@ -2,7 +2,7 @@ import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import ItemModal from "../ItemModal/ItemModal";
@@ -16,8 +16,20 @@ import { Route, Switch } from "react-router-dom";
 import Profile from "../Profile/Profile";
 import api from "../../utils/api";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import EditProfileModal from "../../EditProfileModal/EditProfileModal";
+import LoginModal from "../LoginModal/LoginModal";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
+  const currentUser = useContext(CurrentUserContext);
+  const date = new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  });
+
+  const [token, setToken] = useState("");
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
   const [temp, setTemp] = useState(0);
@@ -55,10 +67,31 @@ function App() {
       });
   }, []);
 
-  function handleRegistration() {
-    console.log("handleRegistration");
-    setActiveModal("registration");
-  }
+  const login = async (email, password) => {
+    try {
+      const res = await api.login(email, password);
+      if (res.token) {
+        setToken(res.token);
+        localStorage.setItem("token", res.token);
+        return res;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const register = async (email, password) => {
+    try {
+      const res = await api.register(email, password);
+      if (res.token) {
+        setToken(res.token);
+        localStorage.setItem("token", res.token);
+        return res;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleAddItem = (item) => {
     api
@@ -117,18 +150,23 @@ function App() {
             avatar={avatar}
             location={location}
             onAddClick={handleAddGarmentModal}
+            date={date}
+            login={login}
+            register={register}
           />
           <Switch>
-            <Route exact path="/profile">
-              <Profile
-                name="Terrence Tegegne"
-                avatar={avatar}
-                onPreviewClick={handlePreviewModal}
-                onSelectedCard={handleSelectedCard}
-                clothingItems={clothingItems}
-                onAddItem={handleAddGarmentModal}
-              />
-            </Route>
+            <ProtectedRoute token={token}>
+              <Route exact path="/profile">
+                <Profile
+                  name="Terrence Tegegne"
+                  avatar={avatar}
+                  onPreviewClick={handlePreviewModal}
+                  onSelectedCard={handleSelectedCard}
+                  clothingItems={clothingItems}
+                  onAddItem={handleAddGarmentModal}
+                />
+              </Route>
+            </ProtectedRoute>
             <Route exact path="/">
               <Main
                 weather={weather}
@@ -139,7 +177,6 @@ function App() {
               />
             </Route>
           </Switch>
-
           <Footer />
           {activeModal === "new-garment" && (
             <AddItemModal
@@ -158,10 +195,13 @@ function App() {
             />
           )}
           {activeModal === "registration" && (
-            <RegisterModal
-              onClose={handleCloseModal}
-              handleRegistration={handleRegistration}
-            />
+            <RegisterModal onClose={handleCloseModal} register={register} />
+          )}
+          {activeModal === "edit-profile" && (
+            <EditProfileModal onClose={handleCloseModal} />
+          )}
+          {activeModal === "login" && (
+            <LoginModal onClose={handleCloseModal} login={login} />
           )}
         </CurrentTemperatureUnitContext.Provider>
       </div>
