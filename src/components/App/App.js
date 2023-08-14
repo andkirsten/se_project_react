@@ -15,6 +15,7 @@ import avatar from "../../images/avatar.svg";
 import { Route, Switch } from "react-router-dom";
 import Profile from "../Profile/Profile";
 import api from "../../utils/api";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -53,6 +54,11 @@ function App() {
         console.log(err);
       });
   }, []);
+
+  function handleRegistration() {
+    console.log("handleRegistration");
+    setActiveModal("registration");
+  }
 
   const handleAddItem = (item) => {
     api
@@ -99,59 +105,67 @@ function App() {
   };
 
   return (
-    <div className="page">
-      <CurrentTemperatureUnitContext.Provider
-        value={{
-          currentTemperatureUnit,
-          handleToggleSwitchChange,
-        }}
-      >
-        <Header
-          avatar={avatar}
-          location={location}
-          onAddClick={handleAddGarmentModal}
-        />
-        <Switch>
-          <Route exact path="/profile">
-            <Profile
-              name="Terrence Tegegne"
-              avatar={avatar}
-              onPreviewClick={handlePreviewModal}
-              onSelectedCard={handleSelectedCard}
-              clothingItems={clothingItems}
-              onAddItem={handleAddGarmentModal}
-            />
-          </Route>
-          <Route exact path="/">
-            <Main
-              weather={weather}
-              temp={temp}
-              onPreviewClick={handlePreviewModal}
-              onSelectedCard={handleSelectedCard}
-              clothingItems={clothingItems}
-            />
-          </Route>
-        </Switch>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        <CurrentTemperatureUnitContext.Provider
+          value={{
+            currentTemperatureUnit,
+            handleToggleSwitchChange,
+          }}
+        >
+          <Header
+            avatar={avatar}
+            location={location}
+            onAddClick={handleAddGarmentModal}
+          />
+          <Switch>
+            <Route exact path="/profile">
+              <Profile
+                name="Terrence Tegegne"
+                avatar={avatar}
+                onPreviewClick={handlePreviewModal}
+                onSelectedCard={handleSelectedCard}
+                clothingItems={clothingItems}
+                onAddItem={handleAddGarmentModal}
+              />
+            </Route>
+            <Route exact path="/">
+              <Main
+                weather={weather}
+                temp={temp}
+                onPreviewClick={handlePreviewModal}
+                onSelectedCard={handleSelectedCard}
+                clothingItems={clothingItems}
+              />
+            </Route>
+          </Switch>
 
-        <Footer />
-        {activeModal === "new-garment" && (
-          <AddItemModal
-            onClose={handleCloseModal}
-            title="New garment"
-            modalName="new-garment"
-            buttonText="Add Garment"
-            handleSubmit={handleAddItem}
-          />
-        )}
-        {activeModal === "item-preview" && (
-          <ItemModal
-            item={selectedCard}
-            onClose={handleCloseModal}
-            handleDeleteItem={handleDeleteItem}
-          />
-        )}
-      </CurrentTemperatureUnitContext.Provider>
-    </div>
+          <Footer />
+          {activeModal === "new-garment" && (
+            <AddItemModal
+              onClose={handleCloseModal}
+              title="New garment"
+              modalName="new-garment"
+              buttonText="Add Garment"
+              handleSubmit={handleAddItem}
+            />
+          )}
+          {activeModal === "item-preview" && (
+            <ItemModal
+              item={selectedCard}
+              onClose={handleCloseModal}
+              handleDeleteItem={handleDeleteItem}
+            />
+          )}
+          {activeModal === "registration" && (
+            <RegisterModal
+              onClose={handleCloseModal}
+              handleRegistration={handleRegistration}
+            />
+          )}
+        </CurrentTemperatureUnitContext.Provider>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
