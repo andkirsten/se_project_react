@@ -11,10 +11,11 @@ const api = {
   getGarments: () => {
     return fetch(`${API_URL}/items`).then(handleResponse);
   },
-  createGarment: (garmentData) => {
+  createGarment: (garmentData, token) => {
     return fetch(`${API_URL}/items`, {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(garmentData),

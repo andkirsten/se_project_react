@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useRef } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const LoginModal = () => {
+const LoginModal = (props) => {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const handleSubmit = (e) => {
+    props.handleLogin({
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    });
+  };
+
   return (
     <div>
-      <ModalWithForm title="Log in" modalName="login" buttonText="Log in">
+      <ModalWithForm
+        title="Log in"
+        modalName="login"
+        buttonText="Log in"
+        handleSubmit={handleSubmit}
+        onClose={props.onClose}
+      >
         <div className="input__group">
           <label className="input__label" htmlFor="email">
             Email:
@@ -15,6 +31,7 @@ const LoginModal = () => {
             id="email"
             name="email"
             placeholder="Email"
+            ref={emailRef}
             required
           />
           <label className="input__label" htmlFor="password">
@@ -26,6 +43,7 @@ const LoginModal = () => {
             id="password"
             name="password"
             placeholder="Password"
+            ref={passwordRef}
             required
           />
         </div>
