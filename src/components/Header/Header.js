@@ -2,28 +2,18 @@ import "./Header.css";
 import logoImage from "../../logo.png";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
-const Header = ({
-  location,
-  onAddClick,
-  date,
-  isLogged,
-  setIsLogged,
-  setActiveModal,
-}) => {
+const Header = ({ location, onAddClick, date, isLogged, setActiveModal }) => {
   const currentUser = useContext(CurrentUserContext);
-  console.log(currentUser, "currentUser");
+
   const onLoginClick = () => {
     setActiveModal("login");
   };
 
   const onRegisterClick = () => {
     setActiveModal("register");
-  };
-
-  const onLogoutClick = () => {
-    localStorage.removeItem("token");
-    setIsLogged(false);
   };
 
   return (
@@ -39,43 +29,46 @@ const Header = ({
         </div>
         {!isLogged ? (
           <div className="header__group">
+            <div>
+              <ToggleSwitch />
+            </div>
             <button
               onClick={onRegisterClick}
-              className="header__register-btn"
+              className="header__btn"
               type="text"
             >
               Sign up
             </button>
-            <button
-              onClick={onLoginClick}
-              className="header__login-btn"
-              type="text"
-            >
+            <button onClick={onLoginClick} className="header__btn" type="text">
               Log in
             </button>
           </div>
         ) : (
           <div className="header__group">
             <div>
-              <button
-                onClick={onAddClick}
-                className="header__add-btn"
-                type="text"
-              >
+              <ToggleSwitch />
+            </div>
+            <div>
+              <button onClick={onAddClick} className="header__btn" type="text">
                 + Add Clothes
               </button>
             </div>
-            <div className="header__username">{currentUser.data.name}</div>
+            <Link to="/profile" className="header__username">
+              {currentUser?.data?.name}
+            </Link>
             <div>
               <img
                 className="header__avatar"
-                src={currentUser.data.avatar}
+                src={currentUser?.data?.avatar}
                 alt="avatar"
               />
             </div>
-            <div className="header__login">
+            <div className="header__logout">
               <button
-                onClick={onLogoutClick}
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  window.location.reload();
+                }}
                 className="header__logout-btn"
                 type="text"
               >

@@ -13,42 +13,41 @@ const LoginModal = (props) => {
   };
 
   return (
-    <div>
-      <ModalWithForm
-        title="Log in"
-        modalName="login"
-        buttonText="Log in"
-        handleSubmit={handleSubmit}
-        onClose={props.onClose}
-      >
-        <div className="input__group">
-          <label className="input__label" htmlFor="email">
-            Email:
-          </label>
-          <input
-            className="input__input"
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Email"
-            ref={emailRef}
-            required
-          />
-          <label className="input__label" htmlFor="password">
-            Password:
-          </label>
-          <input
-            className="input__input"
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
-            ref={passwordRef}
-            required
-          />
-        </div>
-      </ModalWithForm>
-    </div>
+    <ModalWithForm
+      title="Log in"
+      modalName="login"
+      buttonText="Log in"
+      handleSubmit={handleSubmit}
+      onClose={props.onClose}
+      setActiveModal={props.setActiveModal}
+    >
+      <div className="input__group">
+        <label className="input__label" htmlFor="email">
+          Email:
+        </label>
+        <input
+          className="input__input"
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Email"
+          ref={emailRef}
+          required
+        />
+        <label className="input__label" htmlFor="password">
+          Password:
+        </label>
+        <input
+          className="input__input"
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Password"
+          ref={passwordRef}
+          required
+        />
+      </div>
+    </ModalWithForm>
   );
 };
 

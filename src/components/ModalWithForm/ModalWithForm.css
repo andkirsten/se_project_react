@@ -1,14 +1,18 @@
-.modal__content {
+.modal {
   background-color: #fefefe;
   max-width: 496px;
+  width: 100%;
   margin: 193px auto;
-  padding: 28px;
-  position: relative;
+  position: absolute;
   border-radius: 20px;
   box-sizing: border-box;
   border: 1px solid rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
+}
+
+.modal__content {
+  padding: 28px;
 }
 
 .modal__title {
@@ -61,4 +65,12 @@
 .modal__submit:disabled {
   background: rgba(0, 0, 0, 0.3);
   cursor: not-allowed;
+}
+
+.modal__sub-btn {
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.5);
+  padding-left: 10px;
 }

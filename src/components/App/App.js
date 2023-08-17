@@ -59,9 +59,9 @@ function App() {
         console.log(userInfo);
         setCurrentUser({
           data: {
-            name: userInfo?.data?.name,
-            avatar: userInfo?.data?.avatar,
-            _id: userInfo?.data?._id,
+            name: userInfo.name,
+            avatar: userInfo.avatar,
+            _id: userInfo._id,
           },
         });
         setIsLogged(true);
@@ -93,11 +93,14 @@ function App() {
 
   const handleAddItem = (item) => {
     api
-      .createGarment({
-        name: item.name,
-        weather: item.temperature,
-        imageUrl: item.image,
-      })
+      .createGarment(
+        {
+          name: item.name,
+          weather: item.temperature,
+          imageUrl: item.image,
+        },
+        token
+      )
       .then((res) => {
         setClothingItems([res, ...clothingItems]);
         setActiveModal("");
@@ -139,9 +142,15 @@ function App() {
     const jwt = localStorage.getItem("token");
     if (jwt) {
       verifyToken(jwt).then((res) => {
-        setCurrentUser(res.user);
-        setIsLogged(true);
         setToken(jwt);
+        setCurrentUser({
+          data: {
+            name: res.name,
+            avatar: res.avatar,
+            _id: res._id,
+          },
+        });
+        setIsLogged(true);
       });
     }
   }, []);
@@ -188,29 +197,27 @@ function App() {
             isLogged={isLogged}
             setIsLogged={setIsLogged}
             setActiveModal={setActiveModal}
-            currentUser={currentUser}
           />
           <Switch>
             <ProtectedRoute token={token}>
               <Route exact path="/profile">
                 <Profile
-                  name="Terrence Tegegne"
                   onPreviewClick={handlePreviewModal}
                   onSelectedCard={handleSelectedCard}
                   clothingItems={clothingItems}
                   onAddItem={handleAddGarmentModal}
                 />
               </Route>
+              <Route exact path="/">
+                <Main
+                  weather={weather}
+                  temp={temp}
+                  onPreviewClick={handlePreviewModal}
+                  onSelectedCard={handleSelectedCard}
+                  clothingItems={clothingItems}
+                />
+              </Route>
             </ProtectedRoute>
-            <Route exact path="/">
-              <Main
-                weather={weather}
-                temp={temp}
-                onPreviewClick={handlePreviewModal}
-                onSelectedCard={handleSelectedCard}
-                clothingItems={clothingItems}
-              />
-            </Route>
           </Switch>
           <Footer />
           {activeModal === "new-garment" && (
@@ -233,13 +240,18 @@ function App() {
             <RegisterModal
               onClose={handleCloseModal}
               handleRegister={handleRegister}
+              setActiveModal={setActiveModal}
             />
           )}
           {activeModal === "edit-profile" && (
             <EditProfileModal onClose={handleCloseModal} />
           )}
           {activeModal === "login" && (
-            <LoginModal onClose={handleCloseModal} handleLogin={handleLogin} />
+            <LoginModal
+              onClose={handleCloseModal}
+              handleLogin={handleLogin}
+              setActiveModal={setActiveModal}
+            />
           )}
         </CurrentTemperatureUnitContext.Provider>
       </div>

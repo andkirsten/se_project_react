@@ -12,7 +12,7 @@
   align-items: center;
 }
 
-.header__add-btn {
+.header__btn {
   font-family: "Cabinet Grotesk", sans-serif;
   font-weight: 700;
   font-size: 20px;
@@ -33,6 +33,10 @@
 }
 
 .header__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
   padding-left: 12px;
 }
 

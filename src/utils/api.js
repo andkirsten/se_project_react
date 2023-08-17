@@ -15,8 +15,8 @@ const api = {
     return fetch(`${API_URL}/items`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(garmentData),
     }).then(handleResponse);
