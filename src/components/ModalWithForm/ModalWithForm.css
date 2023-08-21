@@ -1,18 +1,22 @@
 .modal {
-  background-color: #fefefe;
-  max-width: 496px;
   width: 100%;
-  margin: 193px auto;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
   position: absolute;
-  border-radius: 20px;
-  box-sizing: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
 }
 
 .modal__content {
+  max-width: 496px;
+  margin: 193px auto;
   padding: 28px;
+  background-color: #fefefe;
+  width: 100%;
+  border-radius: 20px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  position: relative;
 }
 
 .modal__title {

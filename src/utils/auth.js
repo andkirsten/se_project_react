@@ -1,6 +1,6 @@
 import { API_URL } from "./constants";
 
-export function registerUser(name, avatar, email, password) {
+export function registerUser({ name, avatar, email, password }) {
   return fetch(`${API_URL}/signup`, {
     method: "POST",
     headers: {
@@ -19,6 +19,19 @@ export async function loginUser(email, password) {
     },
 
     body: JSON.stringify({ email, password }),
+  });
+  return res.json();
+}
+
+export async function updateUser({ name, avatar, _id }, token) {
+  const res = await fetch(`${API_URL}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+
+    body: JSON.stringify({ name, avatar, _id }),
   });
   return res.json();
 }

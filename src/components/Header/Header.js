@@ -8,6 +8,8 @@ import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 const Header = ({ location, onAddClick, date, isLogged, setActiveModal }) => {
   const currentUser = useContext(CurrentUserContext);
 
+  const avatarLetter = currentUser?.data?.name?.charAt(0);
+
   const onLoginClick = () => {
     setActiveModal("login");
   };
@@ -21,7 +23,9 @@ const Header = ({ location, onAddClick, date, isLogged, setActiveModal }) => {
       <header className="header">
         <div className="header__group">
           <div className="header__logo">
-            <img src={logoImage} alt="WTWR logo" />
+            <Link to="/">
+              <img src={logoImage} alt="WTWR logo" />
+            </Link>
           </div>
           <div className="header__date">
             {date}, {location}
@@ -57,23 +61,18 @@ const Header = ({ location, onAddClick, date, isLogged, setActiveModal }) => {
               {currentUser?.data?.name}
             </Link>
             <div>
-              <img
-                className="header__avatar"
-                src={currentUser?.data?.avatar}
-                alt="avatar"
-              />
-            </div>
-            <div className="header__logout">
-              <button
-                onClick={() => {
-                  localStorage.removeItem("token");
-                  window.location.reload();
-                }}
-                className="header__logout-btn"
-                type="text"
-              >
-                Log out
-              </button>
+              {!currentUser.data.avatar && (
+                <span className="header__avatar-placeholder">
+                  {avatarLetter}
+                </span>
+              )}
+              {currentUser.data.avatar && (
+                <img
+                  className="header__avatar"
+                  src={currentUser?.data?.avatar}
+                  alt="avatar"
+                />
+              )}
             </div>
           </div>
         )}

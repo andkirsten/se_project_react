@@ -10,14 +10,16 @@ const Main = ({
   onSelectedCard,
   onPreviewClick,
   clothingItems,
+  setActiveModal,
+  handleLikeClick,
 }) => {
   const { currentTemperatureUnit } = React.useContext(
     CurrentTemperatureUnitContext
   );
   const getWeatherType = () => {
-    if (temp >= 86) {
+    if (temp >= 83) {
       return "hot";
-    } else if (temp >= 66 && temp <= 85) {
+    } else if (temp >= 66 && temp <= 82) {
       return "warm";
     } else if (temp <= 65) {
       return "cold";
@@ -53,8 +55,10 @@ const Main = ({
           <ItemCard
             key={item.id}
             item={item}
-            onSelectedItem={onSelectedCard}
+            onSelectedCard={onSelectedCard}
             onPreviewClick={onPreviewClick}
+            setActiveModal={setActiveModal}
+            handleLikeClick={handleLikeClick}
           />
         ))}
       </section>

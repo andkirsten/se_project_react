@@ -28,94 +28,92 @@ function AddItemModal({
   };
 
   return (
-    <div className="add-modal">
-      <ModalWithForm
-        handleSubmit={handleAddSubmit}
-        title={title}
-        modalName={modalName}
-        onClose={onClose}
-        buttonText={buttonText}
-      >
-        <div className="input__group">
-          <label className="input__label" htmlFor="name">
-            Name:
-          </label>
-          <input
-            className="input__input"
-            type="text"
-            id="name"
-            name="name"
-            value={name}
-            placeholder="Name"
-            onChange={handleNameChange}
-            required
-          />
-        </div>
-        <div className="input__group">
-          <label className="input__label" htmlFor="image">
-            Image URL:
-          </label>
-          <input
-            className="input__input"
-            type="url"
-            id="image"
-            name="image"
-            value={image}
-            placeholder="Image URL"
-            onChange={handleImageChange}
-            required
-          />
-        </div>
-        <div>
-          <label className="input__label">Select the weather type:</label>
-        </div>
-        <div>
-          <input
-            className="input__radio"
-            type="radio"
-            id="hot"
-            name="temperature"
-            value="hot"
-            checked={temperature === "hot"}
-            onChange={handleTemperatureChange}
-            required
-          />
-          <label className="radio__label" htmlFor="hot">
-            Hot
-          </label>
-        </div>
-        <div>
-          <input
-            className="input__radio"
-            type="radio"
-            id="warm"
-            name="temperature"
-            value="warm"
-            checked={temperature === "warm"}
-            onChange={handleTemperatureChange}
-            required
-          />
-          <label className="radio__label" htmlFor="warm">
-            Warm
-          </label>
-        </div>
-        <div>
-          <input
-            className="input__radio"
-            type="radio"
-            id="cold"
-            name="temperature"
-            value="cold"
-            checked={temperature === "cold"}
-            onChange={handleTemperatureChange}
-            required
-          />
-          <label className="radio__label" htmlFor="cold">
-            Cold
-          </label>
-        </div>
-      </ModalWithForm>
-    </div>
+    <ModalWithForm
+      handleSubmit={handleAddSubmit}
+      title={title}
+      modalName={modalName}
+      onClose={onClose}
+      buttonText={buttonText}
+    >
+      <div className="input__group">
+        <label className="input__label" htmlFor="name">
+          Name:
+        </label>
+        <input
+          className="input__input"
+          type="text"
+          id="name"
+          name="name"
+          value={name}
+          placeholder="Name"
+          onChange={handleNameChange}
+          required
+        />
+      </div>
+      <div className="input__group">
+        <label className="input__label" htmlFor="image">
+          Image URL:
+        </label>
+        <input
+          className="input__input"
+          type="url"
+          id="image"
+          name="image"
+          value={image}
+          placeholder="Image URL"
+          onChange={handleImageChange}
+          required
+        />
+      </div>
+      <div>
+        <label className="input__label">Select the weather type:</label>
+      </div>
+      <div>
+        <input
+          className="input__radio"
+          type="radio"
+          id="hot"
+          name="temperature"
+          value="hot"
+          checked={temperature === "hot"}
+          onChange={handleTemperatureChange}
+          required
+        />
+        <label className="radio__label" htmlFor="hot">
+          Hot
+        </label>
+      </div>
+      <div>
+        <input
+          className="input__radio"
+          type="radio"
+          id="warm"
+          name="temperature"
+          value="warm"
+          checked={temperature === "warm"}
+          onChange={handleTemperatureChange}
+          required
+        />
+        <label className="radio__label" htmlFor="warm">
+          Warm
+        </label>
+      </div>
+      <div>
+        <input
+          className="input__radio"
+          type="radio"
+          id="cold"
+          name="temperature"
+          value="cold"
+          checked={temperature === "cold"}
+          onChange={handleTemperatureChange}
+          required
+        />
+        <label className="radio__label" htmlFor="cold">
+          Cold
+        </label>
+      </div>
+    </ModalWithForm>
   );
 }
 

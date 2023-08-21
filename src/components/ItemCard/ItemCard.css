@@ -8,17 +8,35 @@
   height: 328px;
   width: 328px;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   cursor: pointer;
 }
 
-.card__title {
+.card__title-container {
   position: absolute;
+  top: 24px;
   left: 50%;
   transform: translate(-50%, -50%);
-  top: 16px;
-  padding: 2px 12px;
+  display: flex;
+  align-items: center;
+}
+
+.card__title {
   background-color: white;
   border-radius: 4px;
   gap: 8px;
+  padding: 2px 12px;
+  margin: 0;
+}
+
+.card__like {
+  width: 18px;
+  height: 16px;
+  background-image: url("../../images/heart.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border: none;
+  cursor: pointer;
+  margin-left: 6px;
 }

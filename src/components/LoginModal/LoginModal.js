@@ -23,7 +23,7 @@ const LoginModal = (props) => {
     >
       <div className="input__group">
         <label className="input__label" htmlFor="email">
-          Email:
+          Email
         </label>
         <input
           className="input__input"
@@ -35,7 +35,7 @@ const LoginModal = (props) => {
           required
         />
         <label className="input__label" htmlFor="password">
-          Password:
+          Password
         </label>
         <input
           className="input__input"

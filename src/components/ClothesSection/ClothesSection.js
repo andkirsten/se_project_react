@@ -8,8 +8,13 @@ const ClothesSection = ({
   onSelectedCard,
   onPreviewClick,
   clothingItems,
+  handleLikeClick,
 }) => {
   const currentUser = React.useContext(CurrentUserContext);
+
+  const filteredItems = clothingItems.filter(
+    (item) => item.owner === currentUser?.data?._id
+  );
 
   return (
     <section className="clothes">
@@ -24,17 +29,15 @@ const ClothesSection = ({
         </button>
       </div>
       <div className="clothes__items-list">
-        {clothingItems.map(
-          (item) =>
-            item.owner === currentUser._id && (
-              <ItemCard
-                key={item.id}
-                item={item}
-                onPreviewClick={onPreviewClick}
-                onSelectedCard={onSelectedCard}
-              />
-            )
-        )}
+        {filteredItems.map((item) => (
+          <ItemCard
+            key={item.id}
+            item={item}
+            onPreviewClick={onPreviewClick}
+            onSelectedCard={onSelectedCard}
+            handleLikeClick={handleLikeClick}
+          />
+        ))}
       </div>
     </section>
   );

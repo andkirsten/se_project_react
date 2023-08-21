@@ -9,16 +9,27 @@ const Profile = ({
   onSelectedCard,
   onPreviewClick,
   clothingItems,
+  handleLogout,
+  handleDeleteConfirm,
+  handleLikeClick,
+  setActiveModal,
 }) => {
   const currentUser = useContext(CurrentUserContext);
   return (
     <div className="profile">
-      <SideBar name={currentUser.data.name} avatar={currentUser.data.avatar} />
+      <SideBar
+        name={currentUser?.data?.name}
+        avatar={currentUser?.data?.avatar}
+        handleLogout={handleLogout}
+        setActiveModal={setActiveModal}
+      />
       <ClothesSection
         onAddItem={onAddItem}
         onSelectedCard={onSelectedCard}
         onPreviewClick={onPreviewClick}
         clothingItems={clothingItems}
+        handleDeleteConfirm={handleDeleteConfirm}
+        handleLikeClick={handleLikeClick}
       />
     </div>
   );

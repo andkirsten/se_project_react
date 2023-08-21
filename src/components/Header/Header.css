@@ -40,6 +40,11 @@
   padding-left: 12px;
 }
 
+.header__username {
+  color: #000;
+  text-decoration: none;
+}
+
 .header__username:hover {
   color: #028bff;
 }

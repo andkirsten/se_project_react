@@ -44,6 +44,7 @@
 }
 
 .item_modal__image {
+  max-height: 600px;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -84,4 +85,8 @@
   border: none;
   cursor: pointer;
   font-size: 20px;
+}
+
+.item_modal__delete_hidden {
+  display: none;
 }

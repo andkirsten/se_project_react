@@ -16,14 +16,19 @@ import Profile from "../Profile/Profile";
 import api from "../../utils/api";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import RegisterModal from "../RegisterModal/RegisterModal";
-import EditProfileModal from "../../EditProfileModal/EditProfileModal";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import LoginModal from "../LoginModal/LoginModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import { registerUser, loginUser, verifyToken } from "../../utils/auth";
+import {
+  registerUser,
+  loginUser,
+  verifyToken,
+  updateUser,
+} from "../../utils/auth";
+import DeleteConfirmModal from "../DeleteConfirmModal/DeleteConfirmModal";
 
 function App() {
   const date = new Date().toLocaleDateString("en-US", {
-    weekday: "long",
     month: "long",
     day: "numeric",
   });
@@ -46,17 +51,15 @@ function App() {
     loginUser(email, password)
       .then((res) => {
         if (res && res.token) {
-          localStorage.setItem("token", res.token);
+          localStorage.setItem("localStorageToken", res.token);
           const userInfo = verifyToken(res.token);
           setToken(res.token);
-          console.log(res);
+
           return userInfo;
         } else {
-          console.log(res);
         }
       })
       .then((userInfo) => {
-        console.log(userInfo);
         setCurrentUser({
           data: {
             name: userInfo.name,
@@ -72,23 +75,39 @@ function App() {
       });
   };
 
-  const handleRegister = async ({ name, avatar, email, password }) => {
+  const handleRegister = async (data) => {
     try {
-      const res = await registerUser({ name, avatar, email, password });
-      if (res.user) console.log(res.user, "registration success");
-      if (res.token) {
-        console.log(res.token, "registration success");
-
-        setIsLogged(true);
-        setCurrentUser(res.user);
-        localStorage.setItem("token", res.token);
-        setActiveModal("");
+      const res = await registerUser(data);
+      if (res) {
+        handleLogin(data);
       } else {
         console.log(res, "registration error");
       }
     } catch (err) {
       console.log(err, "registration error");
     }
+  };
+
+  const handleUpdateUser = (data) => {
+    updateUser(data, token)
+      .then((res) => {
+        setCurrentUser({
+          data: {
+            name: res.name,
+            avatar: res.avatar,
+            _id: res._id,
+          },
+        });
+        setActiveModal("");
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("localStorageToken");
+    setToken(null);
+    setIsLogged(false);
+    setCurrentUser(null);
   };
 
   const handleAddItem = (item) => {
@@ -121,15 +140,43 @@ function App() {
   };
 
   const handleDeleteItem = () => {
+    const id = selectedCard._id;
     api
-      .deleteGarment(selectedCard.id)
+      .deleteGarment(id, token)
       .then((res) => {
         setClothingItems(
-          clothingItems.filter((item) => item.id !== selectedCard.id)
+          clothingItems.filter((item) => item.id !== selectedCard._id)
         );
+        window.location.reload();
         setActiveModal("");
       })
       .catch((err) => console.log(err));
+  };
+
+  const handleDeleteConfirm = () => {
+    setActiveModal("delete");
+  };
+
+  const handleLikeClick = ({ id, isLiked, user }) => {
+    const token = localStorage.getItem("localStorageToken");
+    isLiked
+      ? api
+          .addCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((c) => (c._id === id ? updatedCard : c))
+            );
+          })
+          .catch((err) => console.log(err))
+      : api
+
+          .removeCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((c) => (c._id === id ? updatedCard : c))
+            );
+          })
+          .catch((err) => console.log(err));
   };
 
   const handleToggleSwitchChange = () => {
@@ -139,7 +186,7 @@ function App() {
   };
 
   useEffect(() => {
-    const jwt = localStorage.getItem("token");
+    const jwt = localStorage.getItem("localStorageToken");
     if (jwt) {
       verifyToken(jwt).then((res) => {
         setToken(jwt);
@@ -197,27 +244,35 @@ function App() {
             isLogged={isLogged}
             setIsLogged={setIsLogged}
             setActiveModal={setActiveModal}
+            handleLogout={handleLogout}
           />
           <Switch>
-            <ProtectedRoute token={token}>
-              <Route exact path="/profile">
+            <Route exact path="/profile">
+              <ProtectedRoute token={token}>
                 <Profile
                   onPreviewClick={handlePreviewModal}
                   onSelectedCard={handleSelectedCard}
                   clothingItems={clothingItems}
                   onAddItem={handleAddGarmentModal}
+                  handleLogout={handleLogout}
+                  handleDeleteConfirm={handleDeleteConfirm}
+                  handleLikeClick={handleLikeClick}
+                  setActiveModal={setActiveModal}
                 />
-              </Route>
-              <Route exact path="/">
-                <Main
-                  weather={weather}
-                  temp={temp}
-                  onPreviewClick={handlePreviewModal}
-                  onSelectedCard={handleSelectedCard}
-                  clothingItems={clothingItems}
-                />
-              </Route>
-            </ProtectedRoute>
+              </ProtectedRoute>
+            </Route>
+
+            <Route exact path="/">
+              <Main
+                weather={weather}
+                temp={temp}
+                onPreviewClick={handlePreviewModal}
+                onSelectedCard={handleSelectedCard}
+                clothingItems={clothingItems}
+                handleDeleteConfirm={handleDeleteConfirm}
+                handleLikeClick={handleLikeClick}
+              />
+            </Route>
           </Switch>
           <Footer />
           {activeModal === "new-garment" && (
@@ -234,6 +289,7 @@ function App() {
               item={selectedCard}
               onClose={handleCloseModal}
               handleDeleteItem={handleDeleteItem}
+              setActiveModal={setActiveModal}
             />
           )}
           {activeModal === "register" && (
@@ -251,6 +307,20 @@ function App() {
               onClose={handleCloseModal}
               handleLogin={handleLogin}
               setActiveModal={setActiveModal}
+            />
+          )}
+          {activeModal === "delete" && (
+            <DeleteConfirmModal
+              modalName="delete"
+              onClose={handleCloseModal}
+              handleDeleteItem={handleDeleteItem}
+            />
+          )}
+          {activeModal === "edit-profile" && (
+            <EditProfileModal
+              modalName="edit-profile"
+              onClose={handleCloseModal}
+              handleUpdateUser={handleUpdateUser}
             />
           )}
         </CurrentTemperatureUnitContext.Provider>
