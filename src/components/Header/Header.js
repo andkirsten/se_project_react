@@ -66,7 +66,7 @@ const Header = ({ location, onAddClick, date, isLogged, setActiveModal }) => {
                   {avatarLetter}
                 </span>
               )}
-              {currentUser.data.avatar && (
+              {currentUser?.data?.avatar && (
                 <img
                   className="header__avatar"
                   src={currentUser?.data?.avatar}
