@@ -14,6 +14,8 @@ const EditProfileModal = (props) => {
       avatar: avatarRef.current.value,
       _id: currentUser.data._id,
     });
+    currentUser.data.name = nameRef.current.value;
+    currentUser.data.avatar = avatarRef.current.value;
   };
 
   return (
@@ -47,9 +49,11 @@ const EditProfileModal = (props) => {
           type="url"
           name="avatar"
           defaultValue={currentUser.data.avatar}
+          required
           ref={avatarRef}
         />
       </div>
+      <div className="modal__error">{props.error}</div>
     </ModalWithForm>
   );
 };

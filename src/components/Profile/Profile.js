@@ -15,6 +15,7 @@ const Profile = ({
   setActiveModal,
 }) => {
   const currentUser = useContext(CurrentUserContext);
+
   return (
     <div className="profile">
       <SideBar

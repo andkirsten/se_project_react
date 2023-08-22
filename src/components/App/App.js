@@ -33,6 +33,7 @@ function App() {
     day: "numeric",
   });
 
+  const [error, setError] = useState(null);
   const [token, setToken] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [isLogged, setIsLogged] = useState(false);
@@ -57,6 +58,7 @@ function App() {
 
           return userInfo;
         } else {
+          setError(res.message);
         }
       })
       .then((userInfo) => {
@@ -68,7 +70,7 @@ function App() {
           },
         });
         setIsLogged(true);
-        setActiveModal("");
+        handleCloseModal();
       })
       .catch((err) => {
         console.log(err);
@@ -81,7 +83,7 @@ function App() {
       if (res) {
         handleLogin(data);
       } else {
-        console.log(res, "registration error");
+        setError(res.message);
       }
     } catch (err) {
       console.log(err, "registration error");
@@ -98,7 +100,7 @@ function App() {
             _id: res._id,
           },
         });
-        setActiveModal("");
+        handleCloseModal();
       })
       .catch((err) => console.log(err));
   };
@@ -122,13 +124,14 @@ function App() {
       )
       .then((res) => {
         setClothingItems([res, ...clothingItems]);
-        setActiveModal("");
+        handleCloseModal();
       })
       .catch((err) => console.log(err));
   };
 
   const handleCloseModal = () => {
     setActiveModal("");
+    setError(null);
   };
 
   const handlePreviewModal = () => {
@@ -148,7 +151,7 @@ function App() {
           clothingItems.filter((item) => item.id !== selectedCard._id)
         );
         window.location.reload();
-        setActiveModal("");
+        handleCloseModal();
       })
       .catch((err) => console.log(err));
   };
@@ -244,7 +247,6 @@ function App() {
             isLogged={isLogged}
             setIsLogged={setIsLogged}
             setActiveModal={setActiveModal}
-            handleLogout={handleLogout}
           />
           <Switch>
             <Route exact path="/profile">
@@ -282,6 +284,7 @@ function App() {
               modalName="new-garment"
               buttonText="Add Garment"
               handleSubmit={handleAddItem}
+              error={error}
             />
           )}
           {activeModal === "item-preview" && (
@@ -297,16 +300,18 @@ function App() {
               onClose={handleCloseModal}
               handleRegister={handleRegister}
               setActiveModal={setActiveModal}
+              error={error}
             />
           )}
           {activeModal === "edit-profile" && (
-            <EditProfileModal onClose={handleCloseModal} />
+            <EditProfileModal onClose={handleCloseModal} error={error} />
           )}
           {activeModal === "login" && (
             <LoginModal
               onClose={handleCloseModal}
               handleLogin={handleLogin}
               setActiveModal={setActiveModal}
+              error={error}
             />
           )}
           {activeModal === "delete" && (
@@ -321,6 +326,7 @@ function App() {
               modalName="edit-profile"
               onClose={handleCloseModal}
               handleUpdateUser={handleUpdateUser}
+              error={error}
             />
           )}
         </CurrentTemperatureUnitContext.Provider>

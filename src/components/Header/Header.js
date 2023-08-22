@@ -8,8 +8,6 @@ import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 const Header = ({ location, onAddClick, date, isLogged, setActiveModal }) => {
   const currentUser = useContext(CurrentUserContext);
 
-  const avatarLetter = currentUser?.data?.name?.charAt(0);
-
   const onLoginClick = () => {
     setActiveModal("login");
   };
@@ -57,22 +55,16 @@ const Header = ({ location, onAddClick, date, isLogged, setActiveModal }) => {
                 + Add Clothes
               </button>
             </div>
+
             <Link to="/profile" className="header__username">
               {currentUser?.data?.name}
             </Link>
             <div>
-              {!currentUser.data.avatar && (
-                <span className="header__avatar-placeholder">
-                  {avatarLetter}
-                </span>
-              )}
-              {currentUser?.data?.avatar && (
-                <img
-                  className="header__avatar"
-                  src={currentUser?.data?.avatar}
-                  alt="avatar"
-                />
-              )}
+              <img
+                className="header__avatar"
+                src={currentUser?.data?.avatar}
+                alt="avatar"
+              />
             </div>
           </div>
         )}

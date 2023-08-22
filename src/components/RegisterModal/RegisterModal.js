@@ -75,6 +75,7 @@ const RegisterModal = (props) => {
           required
         />
       </div>
+      <div className="modal__error">{props.error}</div>
     </ModalWithForm>
   );
 };

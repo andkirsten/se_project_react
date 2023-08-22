@@ -31,7 +31,7 @@ const ClothesSection = ({
       <div className="clothes__items-list">
         {filteredItems.map((item) => (
           <ItemCard
-            key={item.id}
+            key={item._id}
             item={item}
             onPreviewClick={onPreviewClick}
             onSelectedCard={onSelectedCard}

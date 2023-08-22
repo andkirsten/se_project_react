@@ -8,6 +8,7 @@ function AddItemModal({
   buttonText = "Submit",
   onClose,
   handleSubmit,
+  error,
 }) {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
@@ -113,6 +114,7 @@ function AddItemModal({
           Cold
         </label>
       </div>
+      <div className="modal__error">{error}</div>
     </ModalWithForm>
   );
 }
