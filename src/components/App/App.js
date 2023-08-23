@@ -161,7 +161,6 @@ function App() {
   };
 
   const handleLikeClick = ({ id, isLiked }) => {
-    console.log(id, isLiked);
     const token = localStorage.getItem("localStorageToken");
     !isLiked
       ? api
