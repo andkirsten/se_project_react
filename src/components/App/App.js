@@ -160,9 +160,10 @@ function App() {
     setActiveModal("delete");
   };
 
-  const handleLikeClick = ({ id, isLiked, user }) => {
+  const handleLikeClick = ({ id, isLiked }) => {
+    console.log(id, isLiked);
     const token = localStorage.getItem("localStorageToken");
-    isLiked
+    !isLiked
       ? api
           .addCardLike(id, token)
           .then((updatedCard) => {
@@ -172,7 +173,6 @@ function App() {
           })
           .catch((err) => console.log(err))
       : api
-
           .removeCardLike(id, token)
           .then((updatedCard) => {
             setClothingItems((cards) =>
@@ -202,6 +202,9 @@ function App() {
         });
         setIsLogged(true);
       });
+    } else {
+      setIsLogged(false);
+      setToken(null);
     }
   }, []);
 

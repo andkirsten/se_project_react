@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 import "./ItemCard.css";
 import heart from "../../images/heart.svg";
 import likedHeart from "../../images/likeHeart.svg";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 const ItemCard = ({
   item,
@@ -9,7 +10,10 @@ const ItemCard = ({
   onPreviewClick,
   handleLikeClick,
 }) => {
-  const [isLiked, setIsLiked] = useState(false);
+  const currentUser = useContext(CurrentUserContext);
+  const [isLiked, setIsLiked] = useState(
+    item.likes.some((like) => like === currentUser?._id)
+  );
 
   const likeBtnStyle = {
     backgroundImage: `url(${isLiked ? likedHeart : heart})`,
@@ -18,16 +22,15 @@ const ItemCard = ({
   const onLikeClick = (event) => {
     event.stopPropagation();
     setIsLiked(!isLiked);
-    handleLikeClick({ id: item._id, isLiked: item.isLiked, user: item.user });
+    handleLikeClick({
+      id: item._id,
+      isLiked,
+    });
   };
 
   const cardStyle = {
     backgroundImage: `url(${item.imageUrl})`,
   };
-
-  useEffect(() => {
-    item.isLiked ? setIsLiked(true) : setIsLiked(false);
-  }, [item.isLiked]);
 
   return (
     <div
@@ -40,11 +43,13 @@ const ItemCard = ({
     >
       <div className="card__title-container">
         <h3 className="card__title">{item.name}</h3>
-        <span
-          className="card__like"
-          style={likeBtnStyle}
-          onClick={onLikeClick}
-        ></span>
+        {currentUser && (
+          <span
+            className="card__like"
+            style={likeBtnStyle}
+            onClick={onLikeClick}
+          ></span>
+        )}
       </div>
     </div>
   );
