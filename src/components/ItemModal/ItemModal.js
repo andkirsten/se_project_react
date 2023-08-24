@@ -5,7 +5,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 const ItemModal = ({ item, onClose, setActiveModal }) => {
   const currentUser = React.useContext(CurrentUserContext);
 
-  const isOwn = item.owner === currentUser.data._id;
+  const isOwn = item.owner === currentUser?.data?._id;
 
   const itemDeleteButtonClassName = `item_modal__delete ${
     isOwn ? "item_modal__delete_visible" : "item_modal__delete_hidden"
@@ -16,7 +16,7 @@ const ItemModal = ({ item, onClose, setActiveModal }) => {
   };
 
   return (
-    <div className={`item_modal`}>
+    <div className={`item_modal modal`}>
       <div className="item_modal-content">
         <button
           className="item_modal__close-btn"

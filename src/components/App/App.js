@@ -37,6 +37,7 @@ function App() {
   const [token, setToken] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [isLogged, setIsLogged] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
   const [temp, setTemp] = useState(0);
@@ -49,11 +50,14 @@ function App() {
   };
 
   const handleLogin = ({ email, password }) => {
+    setIsLoading(true);
     loginUser(email, password)
       .then((res) => {
         if (res && res.token) {
           localStorage.setItem("localStorageToken", res.token);
-          const userInfo = verifyToken(res.token);
+          const userInfo = verifyToken(res.token).catch((err) =>
+            console.log(err)
+          );
           setToken(res.token);
 
           return userInfo;
@@ -78,6 +82,7 @@ function App() {
   };
 
   const handleRegister = async (data) => {
+    setIsLoading(true);
     try {
       const res = await registerUser(data);
       if (res) {
@@ -91,6 +96,7 @@ function App() {
   };
 
   const handleUpdateUser = (data) => {
+    setIsLoading(true);
     updateUser(data, token)
       .then((res) => {
         setCurrentUser({
@@ -113,6 +119,7 @@ function App() {
   };
 
   const handleAddItem = (item) => {
+    setIsLoading(true);
     api
       .createGarment(
         {
@@ -132,6 +139,7 @@ function App() {
   const handleCloseModal = () => {
     setActiveModal("");
     setError(null);
+    setIsLoading(false);
   };
 
   const handlePreviewModal = () => {
@@ -147,10 +155,8 @@ function App() {
     api
       .deleteGarment(id, token)
       .then((res) => {
-        setClothingItems(
-          clothingItems.filter((item) => item.id !== selectedCard._id)
-        );
-        window.location.reload();
+        setClothingItems(clothingItems.filter((item) => item._id !== id));
+        setSelectedCard(null);
         handleCloseModal();
       })
       .catch((err) => console.log(err));
@@ -190,17 +196,21 @@ function App() {
   useEffect(() => {
     const jwt = localStorage.getItem("localStorageToken");
     if (jwt) {
-      verifyToken(jwt).then((res) => {
-        setToken(jwt);
-        setCurrentUser({
-          data: {
-            name: res.name,
-            avatar: res.avatar,
-            _id: res._id,
-          },
+      verifyToken(jwt)
+        .then((res) => {
+          setToken(jwt);
+          setCurrentUser({
+            data: {
+              name: res.name,
+              avatar: res.avatar,
+              _id: res._id,
+            },
+          });
+          setIsLogged(true);
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        setIsLogged(true);
-      });
     } else {
       setIsLogged(false);
       setToken(null);
@@ -232,6 +242,22 @@ function App() {
         console.log(err);
       });
   }, []);
+
+  useEffect(() => {
+    if (!activeModal) return;
+
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        handleCloseModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -284,9 +310,9 @@ function App() {
               onClose={handleCloseModal}
               title="New garment"
               modalName="new-garment"
-              buttonText="Add Garment"
               handleSubmit={handleAddItem}
               error={error}
+              isLoading={isLoading}
             />
           )}
           {activeModal === "item-preview" && (
@@ -303,17 +329,17 @@ function App() {
               handleRegister={handleRegister}
               setActiveModal={setActiveModal}
               error={error}
+              isLoading={isLoading}
             />
           )}
-          {activeModal === "edit-profile" && (
-            <EditProfileModal onClose={handleCloseModal} error={error} />
-          )}
+
           {activeModal === "login" && (
             <LoginModal
               onClose={handleCloseModal}
               handleLogin={handleLogin}
               setActiveModal={setActiveModal}
               error={error}
+              isLoading={isLoading}
             />
           )}
           {activeModal === "delete" && (
@@ -321,6 +347,7 @@ function App() {
               modalName="delete"
               onClose={handleCloseModal}
               handleDeleteItem={handleDeleteItem}
+              isLoading={isLoading}
             />
           )}
           {activeModal === "edit-profile" && (
@@ -329,6 +356,7 @@ function App() {
               onClose={handleCloseModal}
               handleUpdateUser={handleUpdateUser}
               error={error}
+              isLoading={isLoading}
             />
           )}
         </CurrentTemperatureUnitContext.Provider>

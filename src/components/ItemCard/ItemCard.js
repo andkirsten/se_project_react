@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import "./ItemCard.css";
 import heart from "../../images/heart.svg";
 import likedHeart from "../../images/likeHeart.svg";
@@ -11,9 +11,10 @@ const ItemCard = ({
   handleLikeClick,
 }) => {
   const currentUser = useContext(CurrentUserContext);
-  const [isLiked, setIsLiked] = useState(
-    item.likes.some((like) => like === currentUser?._id)
-  );
+
+  const isLiked =
+    Array.isArray(item.likes) &&
+    item.likes.some((like) => like === currentUser?.data?._id);
 
   const likeBtnStyle = {
     backgroundImage: `url(${isLiked ? likedHeart : heart})`,
@@ -21,7 +22,6 @@ const ItemCard = ({
 
   const onLikeClick = (event) => {
     event.stopPropagation();
-    setIsLiked(!isLiked);
     handleLikeClick({
       id: item._id,
       isLiked,

@@ -1,5 +1,12 @@
 import { API_URL } from "./constants";
 
+const handleResponse = (response) => {
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response.json();
+};
+
 export function registerUser({ name, avatar, email, password }) {
   return fetch(`${API_URL}/signup`, {
     method: "POST",
@@ -8,23 +15,22 @@ export function registerUser({ name, avatar, email, password }) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ name, avatar, email, password }),
-  });
+  }).then(handleResponse);
 }
 
-export async function loginUser(email, password) {
-  const res = await fetch(`${API_URL}/signin`, {
+export function loginUser(email, password) {
+  return fetch(`${API_URL}/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
 
     body: JSON.stringify({ email, password }),
-  });
-  return res.json();
+  }).then(handleResponse);
 }
 
-export async function updateUser({ name, avatar, _id }, token) {
-  const res = await fetch(`${API_URL}/users/me`, {
+export function updateUser({ name, avatar, _id }, token) {
+  return fetch(`${API_URL}/users/me`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -32,16 +38,14 @@ export async function updateUser({ name, avatar, _id }, token) {
     },
 
     body: JSON.stringify({ name, avatar, _id }),
-  });
-  return res.json();
+  }).then(handleResponse);
 }
 
-export async function verifyToken(token) {
-  const res = await fetch(`${API_URL}/users/me`, {
+export function verifyToken(token) {
+  return fetch(`${API_URL}/users/me`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  });
-  return res.json();
+  }).then(handleResponse);
 }

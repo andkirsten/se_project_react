@@ -3,7 +3,7 @@ import "./DeleteConfirmModal.css";
 
 const DeleteConfirmModal = ({ handleDeleteItem, onClose }) => {
   return (
-    <div className={`delete`}>
+    <div className={`delete modal`}>
       <div className="delete__content">
         <p className="delete__text">
           Are you sure you want to delete this item?

@@ -1,18 +1,21 @@
-import React, { useRef } from "react";
+import React from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import useForm from "../../hooks/useForm";
 
 const RegisterModal = (props) => {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const nameRef = useRef();
-  const avatarRef = useRef();
+  const { values, handleChange } = useForm({
+    name: "",
+    avatar: "",
+    email: "",
+    password: "",
+  });
 
   const handleSubmit = (e) => {
     props.handleRegister({
-      name: nameRef.current.value,
-      avatar: avatarRef.current.value,
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
+      name: values.name,
+      avatar: values.avatar,
+      email: values.email,
+      password: values.password,
     });
   };
 
@@ -20,7 +23,7 @@ const RegisterModal = (props) => {
     <ModalWithForm
       title="Sign up"
       modalName="register"
-      buttonText="Next"
+      buttonText={props.isLoading ? "Signing up" : "Next"}
       handleSubmit={handleSubmit}
       onClose={props.onClose}
       setActiveModal={props.setActiveModal}
@@ -35,7 +38,7 @@ const RegisterModal = (props) => {
           id="email"
           name="email"
           placeholder="Email"
-          ref={emailRef}
+          onChange={handleChange}
           required
         />
         <label className="input__label" htmlFor="password">
@@ -47,7 +50,7 @@ const RegisterModal = (props) => {
           id="password"
           name="password"
           placeholder="Password"
-          ref={passwordRef}
+          onChange={handleChange}
           required
         />
         <label className="input__label" htmlFor="name">
@@ -59,7 +62,7 @@ const RegisterModal = (props) => {
           id="name"
           name="name"
           placeholder="Name"
-          ref={nameRef}
+          onChange={handleChange}
           required
         />
         <label className="input__label" htmlFor="avatar">
@@ -71,7 +74,7 @@ const RegisterModal = (props) => {
           id="avatar"
           name="avatar"
           placeholder="Avatar URL"
-          ref={avatarRef}
+          onChange={handleChange}
           required
         />
       </div>

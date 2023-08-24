@@ -1,10 +1,10 @@
 import { API_URL } from "./constants";
 
 const handleResponse = (response) => {
-  if (!response.ok) {
-    throw new Error(response.statusText);
+  if (response.ok) {
+    return response.json();
   }
-  return response.json();
+  return Promise.reject(`Error: ${response.status}`);
 };
 
 const api = {
@@ -19,7 +19,7 @@ const api = {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(garmentData),
-    }).then(handleResponse);
+    });
   },
   updateGarment: (id, garmentData) => {
     return fetch(`${API_URL}/items/${id}`, {
@@ -28,7 +28,7 @@ const api = {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(garmentData),
-    }).then(handleResponse);
+    });
   },
   deleteGarment: (id, token) => {
     return fetch(`${API_URL}/items/${id}`, {
@@ -37,7 +37,7 @@ const api = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    }).then(handleResponse);
+    });
   },
   addCardLike: (id, token) => {
     return fetch(`${API_URL}/items/${id}/likes`, {
@@ -46,7 +46,7 @@ const api = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    }).then(handleResponse);
+    });
   },
   removeCardLike: (id, token) => {
     return fetch(`${API_URL}/items/${id}/likes`, {
@@ -55,7 +55,7 @@ const api = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    }).then(handleResponse);
+    });
   },
 };
 

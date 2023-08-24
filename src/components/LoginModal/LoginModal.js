@@ -1,14 +1,17 @@
-import React, { useRef } from "react";
+import React from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import useForm from "../../hooks/useForm";
 
 const LoginModal = (props) => {
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const { values, handleChange } = useForm({
+    email: "",
+    password: "",
+  });
 
   const handleSubmit = (e) => {
     props.handleLogin({
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
+      email: values.email,
+      password: values.password,
     });
   };
 
@@ -16,7 +19,7 @@ const LoginModal = (props) => {
     <ModalWithForm
       title="Log in"
       modalName="login"
-      buttonText="Log in"
+      buttonText={props.isLoading ? "Logging in..." : "Log in"}
       handleSubmit={handleSubmit}
       onClose={props.onClose}
       setActiveModal={props.setActiveModal}
@@ -31,7 +34,7 @@ const LoginModal = (props) => {
           id="email"
           name="email"
           placeholder="Email"
-          ref={emailRef}
+          onChange={handleChange}
           required
         />
         <label className="input__label" htmlFor="password">
@@ -43,7 +46,7 @@ const LoginModal = (props) => {
           id="password"
           name="password"
           placeholder="Password"
-          ref={passwordRef}
+          onChange={handleChange}
           required
         />
       </div>

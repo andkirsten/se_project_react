@@ -17,59 +17,53 @@ const Header = ({ location, onAddClick, date, isLogged, setActiveModal }) => {
   };
 
   return (
-    <>
-      <header className="header">
+    <header className="header">
+      <div className="header__group">
+        <div className="header__logo">
+          <Link to="/">
+            <img src={logoImage} alt="WTWR logo" />
+          </Link>
+        </div>
+        <div className="header__date">
+          {date}, {location}
+        </div>
+      </div>
+      {!isLogged ? (
         <div className="header__group">
-          <div className="header__logo">
-            <Link to="/">
-              <img src={logoImage} alt="WTWR logo" />
-            </Link>
+          <div>
+            <ToggleSwitch />
           </div>
-          <div className="header__date">
-            {date}, {location}
+          <button onClick={onRegisterClick} className="header__btn" type="text">
+            Sign up
+          </button>
+          <button onClick={onLoginClick} className="header__btn" type="text">
+            Log in
+          </button>
+        </div>
+      ) : (
+        <div className="header__group">
+          <div>
+            <ToggleSwitch />
+          </div>
+          <div>
+            <button onClick={onAddClick} className="header__btn" type="text">
+              + Add Clothes
+            </button>
+          </div>
+
+          <Link to="/profile" className="header__username">
+            {currentUser?.data?.name}
+          </Link>
+          <div>
+            <img
+              className="header__avatar"
+              src={currentUser?.data?.avatar}
+              alt="avatar"
+            />
           </div>
         </div>
-        {!isLogged ? (
-          <div className="header__group">
-            <div>
-              <ToggleSwitch />
-            </div>
-            <button
-              onClick={onRegisterClick}
-              className="header__btn"
-              type="text"
-            >
-              Sign up
-            </button>
-            <button onClick={onLoginClick} className="header__btn" type="text">
-              Log in
-            </button>
-          </div>
-        ) : (
-          <div className="header__group">
-            <div>
-              <ToggleSwitch />
-            </div>
-            <div>
-              <button onClick={onAddClick} className="header__btn" type="text">
-                + Add Clothes
-              </button>
-            </div>
-
-            <Link to="/profile" className="header__username">
-              {currentUser?.data?.name}
-            </Link>
-            <div>
-              <img
-                className="header__avatar"
-                src={currentUser?.data?.avatar}
-                alt="avatar"
-              />
-            </div>
-          </div>
-        )}
-      </header>
-    </>
+      )}
+    </header>
   );
 };
 

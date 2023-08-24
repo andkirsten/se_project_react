@@ -1,31 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import useForm from "../../hooks/useForm";
 
 function AddItemModal({
   title,
   modalName,
-  buttonText = "Submit",
   onClose,
   handleSubmit,
   error,
+  isLoading,
 }) {
-  const [name, setName] = useState("");
-  const [image, setImage] = useState("");
-  const [temperature, setTemperature] = useState("");
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-  const handleImageChange = (e) => {
-    setImage(e.target.value);
-  };
-  const handleTemperatureChange = (e) => {
-    setTemperature(e.target.value);
-  };
+  const { values, handleChange } = useForm({
+    name: "",
+    image: "",
+    temperature: "",
+  });
 
   const handleAddSubmit = () => {
-    handleSubmit({ name, image, temperature });
+    handleSubmit({
+      name: values.name,
+      image: values.image,
+      temperature: values.temperature,
+    });
   };
 
   return (
@@ -34,7 +31,7 @@ function AddItemModal({
       title={title}
       modalName={modalName}
       onClose={onClose}
-      buttonText={buttonText}
+      buttonText={isLoading ? "Saving..." : "Add Garment"}
     >
       <div className="input__group">
         <label className="input__label" htmlFor="name">
@@ -45,9 +42,8 @@ function AddItemModal({
           type="text"
           id="name"
           name="name"
-          value={name}
           placeholder="Name"
-          onChange={handleNameChange}
+          onChange={handleChange}
           required
         />
       </div>
@@ -60,9 +56,8 @@ function AddItemModal({
           type="url"
           id="image"
           name="image"
-          value={image}
           placeholder="Image URL"
-          onChange={handleImageChange}
+          onChange={handleChange}
           required
         />
       </div>
@@ -76,8 +71,7 @@ function AddItemModal({
           id="hot"
           name="temperature"
           value="hot"
-          checked={temperature === "hot"}
-          onChange={handleTemperatureChange}
+          onChange={handleChange}
           required
         />
         <label className="radio__label" htmlFor="hot">
@@ -91,8 +85,7 @@ function AddItemModal({
           id="warm"
           name="temperature"
           value="warm"
-          checked={temperature === "warm"}
-          onChange={handleTemperatureChange}
+          onChange={handleChange}
           required
         />
         <label className="radio__label" htmlFor="warm">
@@ -106,8 +99,7 @@ function AddItemModal({
           id="cold"
           name="temperature"
           value="cold"
-          checked={temperature === "cold"}
-          onChange={handleTemperatureChange}
+          onChange={handleChange}
           required
         />
         <label className="radio__label" htmlFor="cold">
