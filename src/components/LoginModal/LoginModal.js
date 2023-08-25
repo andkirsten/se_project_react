@@ -34,6 +34,7 @@ const LoginModal = (props) => {
           id="email"
           name="email"
           placeholder="Email"
+          value={values.email}
           onChange={handleChange}
           required
         />
@@ -46,6 +47,7 @@ const LoginModal = (props) => {
           id="password"
           name="password"
           placeholder="Password"
+          value={values.password}
           onChange={handleChange}
           required
         />

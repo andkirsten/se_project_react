@@ -38,6 +38,7 @@ const RegisterModal = (props) => {
           id="email"
           name="email"
           placeholder="Email"
+          value={values.email}
           onChange={handleChange}
           required
         />
@@ -50,6 +51,7 @@ const RegisterModal = (props) => {
           id="password"
           name="password"
           placeholder="Password"
+          value={values.password}
           onChange={handleChange}
           required
         />
@@ -62,6 +64,7 @@ const RegisterModal = (props) => {
           id="name"
           name="name"
           placeholder="Name"
+          value={values.name}
           onChange={handleChange}
           required
         />
@@ -74,6 +77,7 @@ const RegisterModal = (props) => {
           id="avatar"
           name="avatar"
           placeholder="Avatar URL"
+          value={values.avatar}
           onChange={handleChange}
           required
         />

@@ -1,11 +1,5 @@
 import { API_URL } from "./constants";
-
-const handleResponse = (response) => {
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-  return response.json();
-};
+import { handleResponse } from "./api";
 
 export function registerUser({ name, avatar, email, password }) {
   return fetch(`${API_URL}/signup`, {

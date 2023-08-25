@@ -40,9 +40,10 @@ function AddItemModal({
         <input
           className="input__input"
           type="text"
-          id="name"
           name="name"
+          id="name"
           placeholder="Name"
+          value={values.name}
           onChange={handleChange}
           required
         />
@@ -57,6 +58,7 @@ function AddItemModal({
           id="image"
           name="image"
           placeholder="Image URL"
+          value={values.image}
           onChange={handleChange}
           required
         />

@@ -7,6 +7,8 @@ const ItemModal = ({ item, onClose, setActiveModal }) => {
 
   const isOwn = item.owner === currentUser?.data?._id;
 
+  console.log("isOwn: ", isOwn, item.owner, currentUser?.data?._id);
+
   const itemDeleteButtonClassName = `item_modal__delete ${
     isOwn ? "item_modal__delete_visible" : "item_modal__delete_hidden"
   }`;
