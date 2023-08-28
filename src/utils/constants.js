@@ -1,7 +1,10 @@
 export const latitude = 37.4563;
 export const longitude = 126.7052;
 export const APIkey = "f3e10ca0bbd122d9b5549f932691faac";
-export const API_URL = "http://localhost:3001";
+export const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "api.wtwr-kam.ignorelist.com"
+    : "http://localhost:3001";
 const weatherOptions = [
   {
     url: require("../images/weather/sunny.svg").default,
