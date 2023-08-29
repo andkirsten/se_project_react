@@ -1,5 +1,9 @@
 # WTWR (What to Wear?)
 
+## Deployment
+
+- [Public Deployment](https://www.wtwr-kam.ignorelist.com/)
+
 ## Backend
 
 - [Backend Repository](https://github.com/andkirsten/se_project_express)
