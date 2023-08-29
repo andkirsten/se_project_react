@@ -3,7 +3,7 @@ export const longitude = 126.7052;
 export const APIkey = "f3e10ca0bbd122d9b5549f932691faac";
 export const API_URL =
   process.env.NODE_ENV === "production"
-    ? "api.wtwr-kam.ignorelist.com"
+    ? "https://api.wtwr-kam.ignorelist.com"
     : "http://localhost:3001";
 const weatherOptions = [
   {
